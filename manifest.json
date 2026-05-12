@@ -1,0 +1,39 @@
+{
+  "manifest_version": "0.3",
+  "name": "cloudbeds-pp-mcp",
+  "display_name": "Cloudbeds",
+  "version": "4.2.2",
+  "description": "Cloudbeds API surface as MCP tools.",
+  "author": {
+    "name": "CLI Printing Press"
+  },
+  "license": "Apache-2.0",
+  "server": {
+    "type": "binary",
+    "entry_point": "bin/cloudbeds-pp-mcp",
+    "mcp_config": {
+      "command": "${__dirname}/bin/cloudbeds-pp-mcp",
+      "args": [],
+      "env": {
+        "CLOUDBEDS_OAUTH2": "${user_config.cloudbeds_oauth2}"
+      }
+    }
+  },
+  "user_config": {
+    "cloudbeds_oauth2": {
+      "type": "string",
+      "title": "CLOUDBEDS_OAUTH2",
+      "description": "Sets CLOUDBEDS_OAUTH2 for the Cloudbeds MCP server.",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=1.0.0",
+    "platforms": [
+      "darwin",
+      "linux",
+      "win32"
+    ]
+  }
+}

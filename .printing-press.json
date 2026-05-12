@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-05-10T12:00:33.396431Z",
+  "printing_press_version": "4.2.2",
+  "api_name": "cloudbeds",
+  "display_name": "Cloudbeds",
+  "cli_name": "cloudbeds-pp-cli",
+  "owner": "digigrowthagency",
+  "printer": "DigiGrowthAgency",
+  "printer_name": "DigiGrowthAgency",
+  "spec_format": "openapi3",
+  "spec_checksum": "sha256:06d3e92201e86a0e168afd9d54590ad09afab5f12b358953a27b079242d5a2e0",
+  "run_id": "20260510-121721",
+  "mcp_binary": "cloudbeds-pp-mcp",
+  "mcp_tool_count": 115,
+  "mcp_ready": "full",
+  "api_version": "v1.3",
+  "auth_type": "bearer_token",
+  "auth_env_vars": [
+    "CLOUDBEDS_OAUTH2"
+  ],
+  "novel_features": [
+    {
+      "name": "Stale-dirty rooms",
+      "command": "housekeeping stale",
+      "description": "Find rooms that have been dirty longer than a threshold so you can chase them before arrivals."
+    },
+    {
+      "name": "Today board",
+      "command": "today",
+      "description": "One-shot front-desk dashboard: arrivals, departures, in-house, unassigned, dirty rooms, today's ADR and occupancy."
+    },
+    {
+      "name": "Rate drift",
+      "command": "rates drift",
+      "description": "Show how rates moved over a window, by date, plan, and room type."
+    },
+    {
+      "name": "Occupancy trend",
+      "command": "occupancy trend",
+      "description": "Daily occupancy, ADR, and RevPAR series with week-over-week deltas."
+    },
+    {
+      "name": "Source mix",
+      "command": "sources mix",
+      "description": "Bookings, nights, and revenue by source (Booking.com, Expedia, Direct, Airbnb) over a window."
+    },
+    {
+      "name": "Unpaid upcoming",
+      "command": "payments unpaid",
+      "description": "Reservations arriving in the next N days with non-zero balance."
+    },
+    {
+      "name": "No-show audit",
+      "command": "reservations no-shows",
+      "description": "No-show rate by source, room type, and lead-time bucket; flags repeat no-show guests."
+    },
+    {
+      "name": "Guest history search",
+      "command": "guests search",
+      "description": "Full-text search across guest name, email, phone, and notes; returns past stays with totals."
+    },
+    {
+      "name": "Mirror reconcile",
+      "command": "reconcile",
+      "description": "Compare local mirror to live API for a sampled window; emit a typed diff."
+    },
+    {
+      "name": "Reservation timeline",
+      "command": "reservations timeline",
+      "description": "Single-reservation forensic view: status changes, payments, notes, room assignments — chronological."
+    },
+    {
+      "name": "Night audit pack",
+      "command": "audit night",
+      "description": "End-of-shift bundle: arrivals not checked-in, departures not checked-out, unbalanced folios, payments since last audit."
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+version: 2
+project_name: cloudbeds-pp-cli
+changelog:
+  disable: true
+builds:
+  - id: cloudbeds-pp-cli
+    main: ./cmd/cloudbeds-pp-cli
+    binary: cloudbeds-pp-cli
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w -X cloudbeds-pp-cli/internal/cli.version={{ .Version }}
+    targets:
+      - darwin_amd64
+      - darwin_arm64
+      - linux_amd64
+      - linux_arm64
+      - windows_amd64
+      - windows_arm64
+  - id: cloudbeds-pp-mcp
+    main: ./cmd/cloudbeds-pp-mcp
+    binary: cloudbeds-pp-mcp
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w
+    targets:
+      - darwin_amd64
+      - darwin_arm64
+      - linux_amd64
+      - linux_arm64
+      - windows_amd64
+      - windows_arm64
+archives:
+  - formats: [tar.gz]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+checksum:
+  name_template: checksums.txt
+brews:
+  - name: cloudbeds-pp-cli
+    repository:
+      owner: digigrowthagency
+      name: homebrew-tap
+    homepage: "https://github.com/digigrowthagency/cloudbeds-pp-cli"
+    description: "The Cloudbeds CLI nobody else built — full PMS API surface plus a local SQLite mirror, FTS5 search, dated..."
+    install: |
+      bin.install "cloudbeds-pp-cli"
+      bin.install "cloudbeds-pp-mcp"

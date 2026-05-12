@@ -1,0 +1,5105 @@
+{
+  "api_name": "cloudbeds",
+  "base_url": "https://api.cloudbeds.com/api/v1.3",
+  "description": "\u003cp\u003e\n    Welcome to the documentation for \u003cstrong\u003eCloudbeds API Version v1.3\u003c/strong\u003e!\n    If you are looking to learn how to use the Cloudbeds API to access guest information, reservations, or similar data\n    for your Cloudbeds customers, then you've come to the right place.\n\u003c/p\u003e\n\n\u003cp\u003e\n    In this document you will find all the API methods we provide along with explanations for parameters and response\n    examples.\n\u003c/p\u003e\n\n\u003cp\u003e\n    If you have questions about different implementation steps (e.g. how to implement OAuth 2.0), please refer to our\n    \u003ca href=\"https://integrations.cloudbeds.com/hc/en-us\"\u003eIntegrations Portal\u003c/a\u003e.\n\u003c/p\u003e\n\n\u003cp\u003e\n    Be sure to \u003ca href=\"https://go.pardot.com/l/308041/2018-07-24/qb2lg\"\u003esubscribe\u003c/a\u003e to the monthly\n    Cloudbeds API announcement mailing list to receive information on new additions and improvements to the\n    Cloudbeds API and related developer tools.\n\u003c/p\u003e\n\n\u003cp\u003e\n    \u003cstrong\u003eEndpoint:\u003c/strong\u003e https://api.cloudbeds.com/api/v1.3/{method}\n\u003c/p\u003e\n\n\u003cp\u003e\n    \u003cstrong\u003eHTTPS:\u003c/strong\u003e Our API requires HTTPS. We'll respond with an appropriate error if you're not using it.\n\u003c/p\u003e\n\n\u003cp\u003e\n    \u003cstrong\u003eRequest Format:\u003c/strong\u003e HTTP GET, POST and PUT (Content-Type: application/x-www-form-urlencoded)\n\u003c/p\u003e\n\n\u003cp\u003e\n    \u003cstrong\u003eResponse Format:\u003c/strong\u003e JSON\n\u003c/p\u003e\n\n\u003cp\u003e\n    \u003cstrong\u003eResponse Header:\u003c/strong\u003e X-Request-ID is added to response headers in all calls to help accelerate support\n    and troubleshooting.\n\u003c/p\u003e\n\n\u003cp\u003e\n    \u003cstrong\u003e\n        \u003ca href=\"https://integrations.cloudbeds.com/hc/en-us/articles/14104678058267-API-Documentation#postman-collection\"\u003e\n            \u003cimg src=\"https://run.pstmn.io/button.svg\" alt=\"Run in Postman\"\u003e\n        \u003c/a\u003e\n    \u003c/strong\u003e use this link to access our Public collection in Postman.\n\u003c/p\u003e",
+  "mcp_ready": "full",
+  "http_transport": "standard",
+  "auth": {
+    "type": "bearer_token",
+    "header": "Authorization",
+    "env_vars": [
+      "CLOUDBEDS_OAUTH2"
+    ],
+    "env_var_specs": [
+      {
+        "name": "CLOUDBEDS_OAUTH2",
+        "kind": "per_call",
+        "required": true,
+        "sensitive": true,
+        "inferred": true
+      }
+    ]
+  },
+  "required_headers": [],
+  "tools": [
+    {
+      "name": "access-token_create",
+      "description": "Query the authorization server for an access token used to access property resources.\u003c/br\u003e If the automatic delivery method for API keys is used, the grant type `urn:ietf:params:oauth:grant-type:api-key` needs to be used to request an API key. This grant type requires `grant_type=urn:ietf:params:oauth:grant-type:api-key`, `client_id`, `client_secret`, `redirect_uri` and `code`.\u003c/br\u003e For OAuth 2.0., two different grant types (`authorization_code`, `refresh_token`) are supported. Authorization code grant type requires `grant_type=authorization_code`, `client_id`, `client_secret`, `redirect_uri`, `code`. Refresh token grant type requires `grant_type=refresh_token`, `client_id`, `client_secret`, `refresh_token`.\u003c/br\u003e Read the [Authentication guide](https://integrations.cloudbeds.com/hc/en-us/sections/14731510501915-Authentication) for implementation tips, user flows and testing advice. Optional: client_id, client_secret, code (plus 3 more). Returns the new PostAccessTokenResponse.",
+      "method": "POST",
+      "path": "/access_token",
+      "params": [
+        {
+          "name": "client_id",
+          "type": "string",
+          "location": "body",
+          "description": "The client identifier. Each client must be provisioned an identifier."
+        },
+        {
+          "name": "client_secret",
+          "type": "string",
+          "location": "body",
+          "description": "The client secret. Each client must be provisioned a secret."
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "location": "body",
+          "description": "An authorization code provisioned by /oauth (Required for grant type 'authorization_code' and 'urn:ietf:params:oauth:grant-type:api-key')."
+        },
+        {
+          "name": "grant_type",
+          "type": "string",
+          "location": "body",
+          "description": "The OAuth2 grant type."
+        },
+        {
+          "name": "redirect_uri",
+          "type": "string",
+          "location": "body",
+          "description": "The client pre-configured redirect URI. (Required for grant type 'authorization_code' and 'urn:ietf:params:oauth:grant-type:api-key')."
+        },
+        {
+          "name": "refresh_token",
+          "type": "string",
+          "location": "body",
+          "description": "A refresh token to renew an access_token (Required for grant type 'refresh_token' only)."
+        }
+      ]
+    },
+    {
+      "name": "append-custom-item_create",
+      "description": "Append single, or multiple, custom items and their associated payments to an existing one in a Reservation, House Account, or Group. Optional: groupCode, guestID, guestName (plus 10 more). Returns the new PostAppendCustomItemResponse.",
+      "method": "POST",
+      "path": "/appendCustomItem",
+      "params": [
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "body",
+          "description": "Group code. Required if no reservationID or houseAccountID is provided."
+        },
+        {
+          "name": "guestID",
+          "type": "string",
+          "location": "body",
+          "description": "Guest identifier"
+        },
+        {
+          "name": "guestName",
+          "type": "string",
+          "location": "body",
+          "description": "(Ignored if guestID exist)"
+        },
+        {
+          "name": "houseAccountID",
+          "type": "string",
+          "location": "body",
+          "description": "House Account identifier. Required if no reservationID or groupCode is provided."
+        },
+        {
+          "name": "itemPaid",
+          "type": "bool",
+          "location": "body",
+          "description": "If the item is already paid. Note: If set to true, a payment in cash will be registered for the total value of the item, taxes and fees. If this is not the expected behavior, set to false, and register the operation manually. (Ignored if payments array exist)"
+        },
+        {
+          "name": "items",
+          "type": "array",
+          "location": "body",
+          "description": "list of items will be posted"
+        },
+        {
+          "name": "payments",
+          "type": "array",
+          "location": "body",
+          "description": "list of payments If the item is already paid"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "referenceID",
+          "type": "string",
+          "location": "body",
+          "description": "partner's transaction reference. If exist then Cloudbeds will prevent adding of duplicates"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation identifier. Required if no houseAccountID or groupCode is provided."
+        },
+        {
+          "name": "roomID",
+          "type": "string",
+          "location": "body",
+          "description": "Room identifier (Ignored if subReservationID exist)"
+        },
+        {
+          "name": "saleDate",
+          "type": "string",
+          "location": "body",
+          "description": "Posting date. Defaults to now."
+        },
+        {
+          "name": "subReservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Sub Reservation identifier"
+        }
+      ]
+    },
+    {
+      "name": "create-allotment-block_create",
+      "description": "Retreive allotment blocks @apiQuery {Integer} propertyID Property ID. Optional: allotmentBlockName, allotmentBlockStatus, allotmentIntervals (plus 7 more). Returns array of CreateAllotmentBlockCreateItem.",
+      "method": "POST",
+      "path": "/createAllotmentBlock",
+      "params": [
+        {
+          "name": "allotmentBlockName",
+          "type": "string",
+          "location": "body",
+          "description": "The name for the allotment block"
+        },
+        {
+          "name": "allotmentBlockStatus",
+          "type": "string",
+          "location": "body",
+          "description": "The status for the allotment block under"
+        },
+        {
+          "name": "allotmentIntervals",
+          "type": "array",
+          "location": "body",
+          "description": "The day-based data for the allotment block."
+        },
+        {
+          "name": "allotmentType",
+          "type": "string",
+          "location": "body",
+          "description": "The allotment type"
+        },
+        {
+          "name": "allowOverbooking",
+          "type": "bool",
+          "location": "body",
+          "description": "If false, or omitted, then this command will fail if it would result in an overbooking. If true, then the update will succeed even if it results in an overbooking."
+        },
+        {
+          "name": "autoRelease",
+          "type": "object",
+          "location": "body",
+          "description": "Optional auto-release configuration"
+        },
+        {
+          "name": "eventCode",
+          "type": "string",
+          "location": "body",
+          "description": "The unique identifier of the event the allotment block should be created"
+        },
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "body",
+          "description": "The unique identifier of the group profile the allotment block should be created"
+        },
+        {
+          "name": "ratePlanId",
+          "type": "string",
+          "location": "body",
+          "description": "The rate plan ID. Required if rateType is 'rate_plan'."
+        },
+        {
+          "name": "rateType",
+          "type": "string",
+          "location": "body",
+          "description": "The rate type for the associated intervals"
+        }
+      ]
+    },
+    {
+      "name": "create-allotment-block-notes_create",
+      "description": "Add a note to an allotment block. Optional: allotmentBlockCode, propertyID, text. Returns the new PostCreateAllotmentBlockNotesResponse.",
+      "method": "POST",
+      "path": "/createAllotmentBlockNotes",
+      "params": [
+        {
+          "name": "allotmentBlockCode",
+          "type": "string",
+          "location": "body",
+          "description": "Allotment Block Code"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "location": "body",
+          "description": "Note's text"
+        }
+      ]
+    },
+    {
+      "name": "delete-adjustment_delete",
+      "description": "Voids the AdjustmentID transaction on the specified reservationID. Required: reservationID, adjustmentID. Optional: propertyID. Returns the DeleteAdjustmentResponse. Destructive.",
+      "method": "DELETE",
+      "path": "/deleteAdjustment",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "query",
+          "description": "Reservation identifier",
+          "required": true
+        },
+        {
+          "name": "adjustmentID",
+          "type": "string",
+          "location": "query",
+          "description": "Adjustment identifier",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "delete-allotment-block_create",
+      "description": "Delete allotment blocks. Optional: allotmentBlockCode. Returns the new PostDeleteAllotmentBlockResponse.",
+      "method": "POST",
+      "path": "/deleteAllotmentBlock",
+      "params": [
+        {
+          "name": "allotmentBlockCode",
+          "type": "string",
+          "location": "body",
+          "description": "The unique code of the allotment Block"
+        }
+      ]
+    },
+    {
+      "name": "delete-app-property-settings_create",
+      "description": "Delete app property settings. Optional: key, propertyID. Returns the new PostDeleteAppPropertySettingsResponse.",
+      "method": "POST",
+      "path": "/deleteAppPropertySettings",
+      "params": [
+        {
+          "name": "key",
+          "type": "string",
+          "location": "body",
+          "description": "Key"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Key"
+        }
+      ]
+    },
+    {
+      "name": "delete-guest-note_delete",
+      "description": "Archives an existing guest note. Required: guestID, noteID. Optional: propertyID. Returns the DeleteGuestNoteResponse. Destructive.",
+      "method": "DELETE",
+      "path": "/deleteGuestNote",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "guestID",
+          "type": "string",
+          "location": "query",
+          "description": "Guest ID",
+          "required": true
+        },
+        {
+          "name": "noteID",
+          "type": "string",
+          "location": "query",
+          "description": "Note ID",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "delete-reservation-note_delete",
+      "description": "Archives an existing reservation note. Required: reservationID, reservationNoteID. Optional: propertyID. Returns the DeleteReservationNoteResponse. Destructive.",
+      "method": "DELETE",
+      "path": "/deleteReservationNote",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "query",
+          "description": "Reservation Unique Identifier",
+          "required": true
+        },
+        {
+          "name": "reservationNoteID",
+          "type": "string",
+          "location": "query",
+          "description": "Reservation Note ID",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "delete-room-block_delete",
+      "description": "Deletes a room block. Required: roomBlockID. Optional: propertyID. Returns the DeleteRoomBlockResponse. Destructive.",
+      "method": "DELETE",
+      "path": "/deleteRoomBlock",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "roomBlockID",
+          "type": "string",
+          "location": "query",
+          "description": "Room block ID",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "delete-webhook_delete",
+      "description": "Remove subscription for webhook. Read the [Webhooks guide](https://integrations.cloudbeds.com/hc/en-us/articles/360007612553-Webhooks) to see available objects, actions, payload info and more. ### Group account support. Required: subscriptionID. Optional: propertyIDs. Returns the DeleteWebhookResponse. Destructive.",
+      "method": "DELETE",
+      "path": "/deleteWebhook",
+      "params": [
+        {
+          "name": "propertyIDs",
+          "type": "string",
+          "location": "query",
+          "description": "List of property IDs, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "subscriptionID",
+          "type": "string",
+          "location": "query",
+          "description": "Subscription ID",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "get-allotment-blocks_list",
+      "description": "Retrieve allotment blocks. Required: propertyID. Optional: allotmentBlockCode, allotmentBlockName, groupCode (plus 9 more). Returns array of GetAllotmentBlocksListItem.",
+      "method": "GET",
+      "path": "/getAllotmentBlocks",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID (optional, by default all authorized properties will be included)",
+          "required": true
+        },
+        {
+          "name": "allotmentBlockCode",
+          "type": "string",
+          "location": "query",
+          "description": "Allotment block code"
+        },
+        {
+          "name": "allotmentBlockName",
+          "type": "string",
+          "location": "query",
+          "description": "Allotment block name"
+        },
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "query",
+          "description": "A group profile code"
+        },
+        {
+          "name": "eventCode",
+          "type": "string",
+          "location": "query",
+          "description": "An event code"
+        },
+        {
+          "name": "allotmentBlockStatus",
+          "type": "string",
+          "location": "query",
+          "description": "Allotment block status(es)"
+        },
+        {
+          "name": "allotmentBlockType",
+          "type": "string",
+          "location": "query",
+          "description": "The type of allotment block"
+        },
+        {
+          "name": "roomTypeID",
+          "type": "string",
+          "location": "query",
+          "description": "Filters allotment blocks with the supplied Room Type ID."
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Number of allotment blocks to return per page (min: 1, max: 100)"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Which page in the results to access"
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "location": "query",
+          "description": "Interval start date"
+        },
+        {
+          "name": "endDate",
+          "type": "string",
+          "location": "query",
+          "description": "Interval end date"
+        },
+        {
+          "name": "forUpdate",
+          "type": "bool",
+          "location": "query",
+          "description": "If false (default) this will show the effective availability on each date. If true, will read raw availability from the allotment intervals."
+        }
+      ]
+    },
+    {
+      "name": "get-app-property-settings_list",
+      "description": "Returns the app property settings. Required: propertyID. Optional: key.",
+      "method": "GET",
+      "path": "/getAppPropertySettings",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID",
+          "required": true
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "location": "query",
+          "description": "Key"
+        }
+      ]
+    },
+    {
+      "name": "get-app-settings_list",
+      "description": "Get the current app settings for a property.\u003cbr /\u003e. Optional: propertyID. Returns the GetAppSettingsResponse.",
+      "method": "GET",
+      "path": "/getAppSettings",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property identifier to be queried"
+        }
+      ]
+    },
+    {
+      "name": "get-app-state_list",
+      "description": "Get the current app integration state for a property.\u003cbr /\u003e This call is only available for third-party integration partners, and not for property client IDs. Read the [Connecting/Disconnecting Apps guide](https://integrations.cloudbeds.com/hc/en-us/articles/360007613213-Connecting-Disconnecting-Apps) to further understand the use cases. Optional: propertyID. Returns the GetAppStateResponse.",
+      "method": "GET",
+      "path": "/getAppState",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property identifier to be queried"
+        }
+      ]
+    },
+    {
+      "name": "get-available-room-types_list",
+      "description": "Returns a list of room types with availability considering the informed parameters ### Group account support. Required: startDate, endDate, rooms (default: 1), adults (default: 1), children. Optional: propertyIDs, promoCode, detailedRates (default: false) (plus 7 more).",
+      "method": "GET",
+      "path": "/getAvailableRoomTypes",
+      "params": [
+        {
+          "name": "propertyIDs",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID list, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "location": "query",
+          "description": "Check-In date.",
+          "required": true
+        },
+        {
+          "name": "endDate",
+          "type": "string",
+          "location": "query",
+          "description": "Check-Out date.",
+          "required": true
+        },
+        {
+          "name": "rooms",
+          "type": "int",
+          "location": "query",
+          "description": "Number of rooms.",
+          "required": true
+        },
+        {
+          "name": "adults",
+          "type": "int",
+          "location": "query",
+          "description": "Number of adults.",
+          "required": true
+        },
+        {
+          "name": "children",
+          "type": "int",
+          "location": "query",
+          "description": "Number of children.",
+          "required": true
+        },
+        {
+          "name": "promoCode",
+          "type": "string",
+          "location": "query",
+          "description": "Promotional code"
+        },
+        {
+          "name": "detailedRates",
+          "type": "bool",
+          "location": "query",
+          "description": "If detailed rates are expected"
+        },
+        {
+          "name": "includeSharedRooms",
+          "type": "bool",
+          "location": "query",
+          "description": "Include shared rooms in the result for multiple adults/children"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "location": "query",
+          "description": "Sort parameter"
+        },
+        {
+          "name": "order",
+          "type": "string",
+          "location": "query",
+          "description": "Order"
+        },
+        {
+          "name": "minRate",
+          "type": "float",
+          "location": "query",
+          "description": "Minimum daily rate. Used to filter results"
+        },
+        {
+          "name": "maxRate",
+          "type": "float",
+          "location": "query",
+          "description": "Maximum daily rate. Used to filter results"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Page size"
+        }
+      ]
+    },
+    {
+      "name": "get-currency-settings_list",
+      "description": "Get currency settings. Optional: propertyID. Returns the GetCurrencySettingsResponse.",
+      "method": "GET",
+      "path": "/getCurrencySettings",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "get-custom-fields_list",
+      "description": "Gets custom fields list\u003cbr /\u003e ¹ data.displayed = 'booking' - Display this field to guests on the booking engine.\u003cbr /\u003e ¹ data.displayed = 'reservation' - Add this field to the reservation folio for use by staff.\u003cbr /\u003e ¹ data.displayed = 'card' - Make this field available for registration cards.\u003cbr /\u003e. Optional: propertyID, customFieldID, shortcode. Returns array of GetCustomFieldsListItem.",
+      "method": "GET",
+      "path": "/getCustomFields",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "customFieldID",
+          "type": "string",
+          "location": "query",
+          "description": "Field identifier"
+        },
+        {
+          "name": "shortcode",
+          "type": "string",
+          "location": "query",
+          "description": "Internal reference and is used for integration purposes such as custom links and the API"
+        }
+      ]
+    },
+    {
+      "name": "get-dashboard_list",
+      "description": "Returns basic information about the current state of the hotel. Optional: propertyID, date.",
+      "method": "GET",
+      "path": "/getDashboard",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "location": "query",
+          "description": "Return data for this date. Format: YYYY-MM-DD"
+        }
+      ]
+    },
+    {
+      "name": "get-email-schedule_list",
+      "description": "Returns a list of all existing email scheduling. This call is only available for third-party integration partners, and not for property client IDs. Optional: propertyID.",
+      "method": "GET",
+      "path": "/getEmailSchedule",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "get-email-templates_list",
+      "description": "Returns a list of all existing email templates. This call is only available for third-party integration partners, and not for property client IDs. Optional: propertyID.",
+      "method": "GET",
+      "path": "/getEmailTemplates",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "get-files_list",
+      "description": "Returns a list of files attached to a hotel or group profile, ordered by creation date. Optional: propertyID, groupCode, sortBy (default: date) (plus 4 more).",
+      "method": "GET",
+      "path": "/getFiles",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "query",
+          "description": "The group code, if the files are to be fetched from a group profile"
+        },
+        {
+          "name": "sortBy",
+          "type": "string",
+          "location": "query",
+          "description": "Sort By parameter"
+        },
+        {
+          "name": "orderBy",
+          "type": "string",
+          "location": "query",
+          "description": "Order response in DESCending or ASCending order, used together with sortBy"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "query",
+          "description": "Filter filess by name. Include only with names containing specified string"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Results page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Results page size. Max = 100"
+        }
+      ]
+    },
+    {
+      "name": "get-group-notes_list",
+      "description": "Returns group notes. Required: propertyID, groupCode, pageSize, pageNumber.",
+      "method": "GET",
+      "path": "/getGroupNotes",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID",
+          "required": true
+        },
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "query",
+          "description": "Group code",
+          "required": true
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Number of groups notes to return per page (min: 1, max: 100)",
+          "required": true
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Which page in the results to access",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "get-groups_list",
+      "description": "Returns the groups for a property. Required: propertyID. Optional: groupCode, type, status (plus 4 more).",
+      "method": "GET",
+      "path": "/getGroups",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID",
+          "required": true
+        },
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "query",
+          "description": "Unique ID for a group"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "query",
+          "description": "The type of group"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "query",
+          "description": "Group status"
+        },
+        {
+          "name": "createdFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Datetime (lower limit) to be queried"
+        },
+        {
+          "name": "createdTo",
+          "type": "string",
+          "location": "query",
+          "description": "Datetime (upper limit) to be queried"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Number of groups to return per page (min: 1, max: 100)"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Which page in the results to access"
+        }
+      ]
+    },
+    {
+      "name": "get-guest_list",
+      "description": "Returns information on a guest specified by the Reservation ID parameter. Optional: propertyID, reservationID, guestID (plus 1 more).",
+      "method": "GET",
+      "path": "/getGuest",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "query",
+          "description": "Reservation Unique Identifier. Required if no guestID is provided."
+        },
+        {
+          "name": "guestID",
+          "type": "string",
+          "location": "query",
+          "description": "Guest ID. Required if no reservationID is provided."
+        },
+        {
+          "name": "includeGuestRequirements",
+          "type": "bool",
+          "location": "query",
+          "description": "Includes guest requirements data in the response"
+        }
+      ]
+    },
+    {
+      "name": "get-guest-list_list",
+      "description": "Returns a list of guests, ordered by modification date ### Group account support. Optional: propertyIDs, resultsFrom, resultsTo (plus 16 more).",
+      "method": "GET",
+      "path": "/getGuestList",
+      "params": [
+        {
+          "name": "propertyIDs",
+          "type": "string",
+          "location": "query",
+          "description": "List of property IDs, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "resultsFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Inferior limit datetime, used to filter guests result, based on latest creation/modification date"
+        },
+        {
+          "name": "resultsTo",
+          "type": "string",
+          "location": "query",
+          "description": "Superior limit datetime, used to filter guests result, based on latest creation/modification date"
+        },
+        {
+          "name": "checkInFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result to return only guests with check-in date range starting on this date"
+        },
+        {
+          "name": "checkInTo",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result to return only guests with check-in date range ending on this date"
+        },
+        {
+          "name": "checkOutFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result to return only guests with check-out date range starting on this date"
+        },
+        {
+          "name": "checkOutTo",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result to return only guests with check-out date range ending on this date"
+        },
+        {
+          "name": "guestFirstName",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result based on Guest First Name"
+        },
+        {
+          "name": "guestLastName",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result based on Guest Last Name"
+        },
+        {
+          "name": "guestEmail",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result based on Guest Email"
+        },
+        {
+          "name": "guestPhone",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result based on Guest Phone Number"
+        },
+        {
+          "name": "guestCellPhone",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result based on Guest Cell Phone Number"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "query",
+          "description": "Reservation status \u003cbr /\u003e If more than one, send as comma-separated values. i.e. in_progress,confirmed"
+        },
+        {
+          "name": "sortBy",
+          "type": "string",
+          "location": "query",
+          "description": "Sort By parameter"
+        },
+        {
+          "name": "includeGuestInfo",
+          "type": "bool",
+          "location": "query",
+          "description": "If API response should return with more of Guest's information"
+        },
+        {
+          "name": "excludeSecondaryGuests",
+          "type": "bool",
+          "location": "query",
+          "description": "If true, response only returns main guest's"
+        },
+        {
+          "name": "includeGuestRequirements",
+          "type": "bool",
+          "location": "query",
+          "description": "Includes guest requirements data in the response"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Results page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Results page size. Max = 100"
+        }
+      ]
+    },
+    {
+      "name": "get-guest-notes_list",
+      "description": "Retrieves a guest notes. Required: guestID. Optional: propertyID. Returns array of GetGuestNotesListItem.",
+      "method": "GET",
+      "path": "/getGuestNotes",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "guestID",
+          "type": "string",
+          "location": "query",
+          "description": "Guest ID",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "get-guests-by-filter_list",
+      "description": "Returns a list of guests matching the selected parameters ### Group account support. Required: status. Optional: propertyIDs, reservationID, roomID (plus 5 more).",
+      "method": "GET",
+      "path": "/getGuestsByFilter",
+      "params": [
+        {
+          "name": "propertyIDs",
+          "type": "string",
+          "location": "query",
+          "description": "List of property IDs, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "query",
+          "description": "Current guest status",
+          "required": true
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "query",
+          "description": "Reservation id"
+        },
+        {
+          "name": "roomID",
+          "type": "string",
+          "location": "query",
+          "description": "Room id"
+        },
+        {
+          "name": "guestName",
+          "type": "string",
+          "location": "query",
+          "description": "Guest name"
+        },
+        {
+          "name": "checkInFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result to return only guests with check-in date range starting on this date"
+        },
+        {
+          "name": "checkInTo",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result to return only guests with check-in date range ending on this date"
+        },
+        {
+          "name": "checkOutFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result to return only guests with check-out date range starting on this date"
+        },
+        {
+          "name": "checkOutTo",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result to return only guests with check-out date range ending on this date"
+        }
+      ]
+    },
+    {
+      "name": "get-guests-by-status_list",
+      "description": "Returns a list of guests in the current status (Not Checked In, In House, Checked Out or Cancelled), sorted by modification date. If no date range is passed, it returns all guests with the selected status. ### Group account support. Required: status. Optional: propertyID, resultsFrom, resultsTo (plus 2 more).",
+      "method": "GET",
+      "path": "/getGuestsByStatus",
+      "params": [
+        {
+          "name": "status",
+          "type": "string",
+          "location": "query",
+          "description": "Guest status during the period",
+          "required": true
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "ID for the properties to be queried (comma-separated, i.e. 37,345,89).\u003cbr /\u003e It can be omitted if the API key is single-property, or to get results from all properties on an association."
+        },
+        {
+          "name": "resultsFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Used to filter guests result, and returns only the guests that were last modified starting on 'resultsFrom' value"
+        },
+        {
+          "name": "resultsTo",
+          "type": "string",
+          "location": "query",
+          "description": "Used to filter guests result, and returns only the guests that were last modified ending on 'resultsTo' value"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Results page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Results page size. Max = 100"
+        }
+      ]
+    },
+    {
+      "name": "get-guests-modified_list",
+      "description": "Returns a list of guests based on their modification date. Note that when a guest checks in or checks out of a room, their record is modified at that time. If no date range is passed, only the records for the current day are returned. Also note that if the guest is assigned to multiple rooms, it will result in multiple records. ### Group account support. Optional: propertyIDs, inHouse (default: false), resultsFrom (plus 8 more).",
+      "method": "GET",
+      "path": "/getGuestsModified",
+      "params": [
+        {
+          "name": "propertyIDs",
+          "type": "string",
+          "location": "query",
+          "description": "List of property IDs, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "inHouse",
+          "type": "bool",
+          "location": "query",
+          "description": "When used, and true, will return guests only currently in-house. If the guest checks-out, it will not appear on the results."
+        },
+        {
+          "name": "resultsFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Inferior limit datetime, used to filter guests result, based on latest creation/modification date"
+        },
+        {
+          "name": "resultsTo",
+          "type": "string",
+          "location": "query",
+          "description": "Superior limit datetime, used to filter guests result, based on latest creation/modification date"
+        },
+        {
+          "name": "checkInFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result to return only guests with check-in date range starting on this date"
+        },
+        {
+          "name": "checkInTo",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result to return only guests with check-in date range ending on this date"
+        },
+        {
+          "name": "checkOutFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result to return only guests with check-out date range starting on this date"
+        },
+        {
+          "name": "checkOutTo",
+          "type": "string",
+          "location": "query",
+          "description": "Filters guests result to return only guests with check-out date range ending on this date"
+        },
+        {
+          "name": "includeGuestRequirements",
+          "type": "bool",
+          "location": "query",
+          "description": "Includes guest requirements data in the response"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Results page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Results page size. Max = 100"
+        }
+      ]
+    },
+    {
+      "name": "get-hotel-details_list",
+      "description": "Returns the details of a specific hotel, identified by 'propertyID'. Optional: propertyID.",
+      "method": "GET",
+      "path": "/getHotelDetails",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "get-hotels_list",
+      "description": "Returns a list of hotels, filtered by the parameters passed ### Group account support. Optional: propertyIDs, propertyName, propertyCity (plus 2 more).",
+      "method": "GET",
+      "path": "/getHotels",
+      "params": [
+        {
+          "name": "propertyIDs",
+          "type": "string",
+          "location": "query",
+          "description": "List of property IDs, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "propertyName",
+          "type": "string",
+          "location": "query",
+          "description": "Property name, or part of it"
+        },
+        {
+          "name": "propertyCity",
+          "type": "string",
+          "location": "query",
+          "description": "Property city, or part of it"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Page size"
+        }
+      ]
+    },
+    {
+      "name": "get-house-account-list_list",
+      "description": "Pulls list of active house accounts. Optional: propertyID. Returns array of GetHouseAccountListListItem.",
+      "method": "GET",
+      "path": "/getHouseAccountList",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "get-housekeepers_list",
+      "description": "Returns a list of housekeepers ### Group account support. Optional: propertyID, pageNumber (default: 1), pageSize (default: 100).",
+      "method": "GET",
+      "path": "/getHousekeepers",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "ID for the properties to be queried (comma-separated, i.e. 37,345,89). It can be omitted if the API key is single-property, or to get results from all properties on an association."
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Results page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Results page size. Max = 1000"
+        }
+      ]
+    },
+    {
+      "name": "get-housekeeping-status_list",
+      "description": "Returns the current date's housekeeping information The housekeeping status is calculated basing on the set of fields roomOccupied | roomCondition | roomBlocked | vacantPickup | roomBlocked | refusedService The available statuses are: - Vacant and Dirty (VD): false | “dirty” | false | false | false | false - Occupied and Dirty (OD): true | “dirty” | false | false | false | false - Vacant and Clean (VC): false | “clean” | false | false | false | false - Occupied and Clean (OC): true | “clean” | false | false | false | false - Occupied and Clean Inspected (OCI): true | “inspected” | false | false | false | false - Vacant and Clean Inspected (VCI): false | “inspected” | false | false | false | false - Do Not Disturb (DND): if doNotDisturb is true - Refused Service (RS): if refusedService is true - Out of Order (OOO): if roomBlocked is true - Vacant and Pickup (VP): if vacantPickup is true. Optional: propertyID, roomTypeIDs, housekeeperIDs (plus 4 more).",
+      "method": "GET",
+      "path": "/getHousekeepingStatus",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "roomTypeIDs",
+          "type": "string",
+          "location": "query",
+          "description": "Filter by room type ID. If more than one, send as comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "housekeeperIDs",
+          "type": "string",
+          "location": "query",
+          "description": "Use this parameter to filter by housekeeper. If you need to specify multiple housekeepers, send their IDs as a comma-separated list (e.g., 37, 345, 89). To retrieve unassigned housekeepers, use the value 0."
+        },
+        {
+          "name": "roomCondition",
+          "type": "string",
+          "location": "query",
+          "description": "Condition of room"
+        },
+        {
+          "name": "roomOccupied",
+          "type": "bool",
+          "location": "query",
+          "description": "Flag for current room occupation status"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Results page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Results page size. Max = 5000"
+        }
+      ]
+    },
+    {
+      "name": "get-item_list",
+      "description": "Gets the details for the one itemID\u003cbr /\u003e \u003csup\u003e1\u003c/sup\u003e only if data.stockInventory = true\u003cbr\u003e \u003csup\u003e2\u003c/sup\u003e Taxes, fees and totals will show up only if an item has assigned tax or fee.\u003cbr\u003e. Required: itemID. Optional: propertyID. Returns the GetItemResponse.",
+      "method": "GET",
+      "path": "/getItem",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "itemID",
+          "type": "string",
+          "location": "query",
+          "description": "Item identifier",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "get-item-categories_list",
+      "description": "Gets the item category list. Optional: propertyID. Returns array of GetItemCategoriesListItem.",
+      "method": "GET",
+      "path": "/getItemCategories",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "get-items_list",
+      "description": "Gets all the items and their prices the hotel has created in myfrontdesk\u003cbr\u003e \u003csup\u003e1\u003c/sup\u003e only if data.stockInventory = true\u003cbr\u003e \u003csup\u003e2\u003c/sup\u003e Taxes, fees and totals will show up only if an item has assigned tax or fee.\u003cbr\u003e. Optional: propertyID, itemCategoryID. Returns array of GetItemsListItem.",
+      "method": "GET",
+      "path": "/getItems",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "itemCategoryID",
+          "type": "string",
+          "location": "query",
+          "description": "Category identifier"
+        }
+      ]
+    },
+    {
+      "name": "get-package-names_list",
+      "description": "Return a list of billing package names for a property. Optional: propertyID. Returns the GetPackagesResponse.",
+      "method": "GET",
+      "path": "/getPackageNames",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "get-packages_list",
+      "description": "This efficient method allows you to retrieve the collection of packages associated with a property. Packages here define a group of features that a property has the ability to utilize or access. By invoking this API method, developers will get a comprehensive view of the feature sets that are available and active for a specific property. The getPackages method boasts a seamless execution that offers essential information, vital in enhancing property management, understanding available functionalities and ultimately, optimizing user experience. Optional: propertyID. Returns the GetPackagesResponse.",
+      "method": "GET",
+      "path": "/getPackages",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "get-payment-methods_list",
+      "description": "Get a list of active methods for a property, or list of properties. Optional: propertyID, lang (default: en). Returns the GetPaymentMethodsResponse.",
+      "method": "GET",
+      "path": "/getPaymentMethods",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "ID for the property to be queried"
+        },
+        {
+          "name": "lang",
+          "type": "string",
+          "location": "query",
+          "description": "Language that payment methods name should return (if available)."
+        }
+      ]
+    },
+    {
+      "name": "get-payments-capabilities_list",
+      "description": "Lists the payment capabilities of a given property. Optional: propertyID. Returns array of GetPaymentsCapabilitiesListItem.",
+      "method": "GET",
+      "path": "/getPaymentsCapabilities",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "ID for the property to be queried"
+        }
+      ]
+    },
+    {
+      "name": "get-rate_list",
+      "description": "Returns the rate of the room type selected, based on the provided parameters. Required: roomTypeID, startDate, endDate. Optional: adults, children, detailedRates (default: false) (plus 1 more).",
+      "method": "GET",
+      "path": "/getRate",
+      "params": [
+        {
+          "name": "roomTypeID",
+          "type": "string",
+          "location": "query",
+          "description": "Room Type ID",
+          "required": true
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "location": "query",
+          "description": "Check-in date",
+          "required": true
+        },
+        {
+          "name": "endDate",
+          "type": "string",
+          "location": "query",
+          "description": "Check-out date",
+          "required": true
+        },
+        {
+          "name": "adults",
+          "type": "int",
+          "location": "query",
+          "description": "Number of adults"
+        },
+        {
+          "name": "children",
+          "type": "int",
+          "location": "query",
+          "description": "Number of children"
+        },
+        {
+          "name": "detailedRates",
+          "type": "bool",
+          "location": "query",
+          "description": "If the rates need detailed information"
+        },
+        {
+          "name": "promoCode",
+          "type": "bool",
+          "location": "query",
+          "description": "Return information for one or more specific rate plans by promo code. This parameter is DEPRECATED and not recommended for usage. Use method getRatePlans instead"
+        }
+      ]
+    },
+    {
+      "name": "get-rate-jobs_list",
+      "description": "Returns a list of Rate Jobs. Rate jobs are only returned within 7 days of creation, after 7 days they will not be returned in the response. Requests which do not provide a jobReferenceID will be filtered by the client ID of the request's token. Optional: jobReferenceID, status.",
+      "method": "GET",
+      "path": "/getRateJobs",
+      "params": [
+        {
+          "name": "jobReferenceID",
+          "type": "string",
+          "location": "query",
+          "description": "Filter Rate Jobs by jobReferenceID"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "query",
+          "description": "Filter Rate Jobs based on status"
+        }
+      ]
+    },
+    {
+      "name": "get-rate-plans_list",
+      "description": "Returns the rates of the room type or promo code selected, based on the provided parameters. If no parameters are provided, then the method will return all publicly available rate plans. ### Group account support. Required: startDate, endDate. Optional: propertyIDs, rateIDs, roomTypeID (plus 6 more).",
+      "method": "GET",
+      "path": "/getRatePlans",
+      "params": [
+        {
+          "name": "propertyIDs",
+          "type": "string",
+          "location": "query",
+          "description": "List of property IDs, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "rateIDs",
+          "type": "string",
+          "location": "query",
+          "description": "List of Rate IDs, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "roomTypeID",
+          "type": "string",
+          "location": "query",
+          "description": "List of Room Type IDs, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "promoCode",
+          "type": "string",
+          "location": "query",
+          "description": "List of Promo Codes, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "includePromoCode",
+          "type": "bool",
+          "location": "query",
+          "description": "Include rate plans with promo code"
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "location": "query",
+          "description": "Check-in date",
+          "required": true
+        },
+        {
+          "name": "endDate",
+          "type": "string",
+          "location": "query",
+          "description": "Check-out date",
+          "required": true
+        },
+        {
+          "name": "adults",
+          "type": "int",
+          "location": "query",
+          "description": "Number of adults"
+        },
+        {
+          "name": "children",
+          "type": "int",
+          "location": "query",
+          "description": "Number of children"
+        },
+        {
+          "name": "detailedRates",
+          "type": "bool",
+          "location": "query",
+          "description": "If the rates need detailed information"
+        },
+        {
+          "name": "includeSharedRooms",
+          "type": "bool",
+          "location": "query",
+          "description": "Include shared rooms in the result for multiple adults/children"
+        }
+      ]
+    },
+    {
+      "name": "get-reservation_list",
+      "description": "Returns information on a booking specified by the reservationID parameter. Required: reservationID. Optional: propertyID, includeGuestRequirements (default: false).",
+      "method": "GET",
+      "path": "/getReservation",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "query",
+          "description": "Reservation Unique Identifier. Obtained from one of the 'Reservations' group methods",
+          "required": true
+        },
+        {
+          "name": "includeGuestRequirements",
+          "type": "bool",
+          "location": "query",
+          "description": "Includes guest requirements data in the response."
+        }
+      ]
+    },
+    {
+      "name": "get-reservation-assignments_list",
+      "description": "Returns a list of rooms/reservations assigned for a selected date. Optional: propertyID, date.",
+      "method": "GET",
+      "path": "/getReservationAssignments",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "location": "query",
+          "description": "Date selected to get the assignments. If no date is passed, it will return the results for the current day."
+        }
+      ]
+    },
+    {
+      "name": "get-reservation-notes_list",
+      "description": "Retrieves reservation notes based on parameters. Required: reservationID. Optional: propertyID. Returns array of GetReservationNotesListItem.",
+      "method": "GET",
+      "path": "/getReservationNotes",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "query",
+          "description": "Reservation Unique Identifier",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "get-reservation-room-details_list",
+      "description": "Returns information about particular room in reservation by its subReservationID. Required: subReservationID. Optional: propertyID.",
+      "method": "GET",
+      "path": "/getReservationRoomDetails",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "subReservationID",
+          "type": "string",
+          "location": "query",
+          "description": "Sub Reservation ID of the specific assigned room",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "get-reservations_list",
+      "description": "Returns a list of reservations that matched the filters criteria.\u003cbr /\u003e Please note that some reservations modification may not be reflected in this timestamp. ### Group account support. Optional: propertyID, status, resultsFrom (plus 26 more).",
+      "method": "GET",
+      "path": "/getReservations",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "ID for the properties to be queried (comma-separated, i.e. 37,345,89).\u003cbr /\u003e It can be omitted if the API key is single-property, or to get results from all properties on an association."
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "query",
+          "description": "Filter by current reservation status"
+        },
+        {
+          "name": "resultsFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Inferior limit datetime, used to filter reservations, based on booking date"
+        },
+        {
+          "name": "resultsTo",
+          "type": "string",
+          "location": "query",
+          "description": "Superior limit datetime, used to filter reservations, based on booking date"
+        },
+        {
+          "name": "modifiedFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Inferior limit datetime, used to filter reservations, based on booking modification date"
+        },
+        {
+          "name": "modifiedTo",
+          "type": "string",
+          "location": "query",
+          "description": "Superior limit datetime, used to filter reservations, based on booking modification date"
+        },
+        {
+          "name": "checkInFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservations result to return only reservations with check-in date range starting on this date"
+        },
+        {
+          "name": "checkInTo",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservations result to return only reservations with check-in date range ending on this date"
+        },
+        {
+          "name": "checkOutFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservations result to return only reservations with check-out date range starting on this date"
+        },
+        {
+          "name": "checkOutTo",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservations result to return only reservations with check-out date range ending on this date"
+        },
+        {
+          "name": "datesQueryMode",
+          "type": "string",
+          "location": "query",
+          "description": "If we should consider the booking's check-in/check-out dates or the start and end dates for the associated rooms."
+        },
+        {
+          "name": "roomID",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservation with the supplied room ID. CheckIn/checkOut dates OR status are required. If dates are provided and span more than one day, more than one reservation can be returned. If roomID supplied, roomName is ignored."
+        },
+        {
+          "name": "roomName",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservation with the supplied room name (customizable by each property). CheckIn/checkOut dates OR status are required. If dates are provided and span more than one day, more than one reservation can be returned."
+        },
+        {
+          "name": "roomTypeID",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservation with the supplied Room Type ID."
+        },
+        {
+          "name": "includeGuestsDetails",
+          "type": "bool",
+          "location": "query",
+          "description": "If guests details should be included or not"
+        },
+        {
+          "name": "includeGuestRequirements",
+          "type": "bool",
+          "location": "query",
+          "description": "Includes guest requirements data in the response. Requires `includeGuestsDetails=true`."
+        },
+        {
+          "name": "includeCustomFields",
+          "type": "bool",
+          "location": "query",
+          "description": "If reservation custom fields should be included or not"
+        },
+        {
+          "name": "includeAllRooms",
+          "type": "bool",
+          "location": "query",
+          "description": "When specified, the response will include an additional rooms field that combines both unassigned and assigned rooms."
+        },
+        {
+          "name": "sourceId",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservation with the supplied source ID."
+        },
+        {
+          "name": "sourceReservationId",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservation with the supplied reservation source ID."
+        },
+        {
+          "name": "ratePlanId",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservation with the supplied rate plan ID."
+        },
+        {
+          "name": "firstName",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservation with the supplied primary guest first name."
+        },
+        {
+          "name": "lastName",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservation with the supplied primary guest last name."
+        },
+        {
+          "name": "guestID",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservation with the supplied Guest ID (Including additional guests)."
+        },
+        {
+          "name": "allotmentBlockCode",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservation with the supplied allotment block code."
+        },
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservation with the supplied group code."
+        },
+        {
+          "name": "sortByRecent",
+          "type": "bool",
+          "location": "query",
+          "description": "Sort response results by most recent action"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Results page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Results page size. Max = 100"
+        }
+      ]
+    },
+    {
+      "name": "get-reservations-with-rate-details_list",
+      "description": "Returns a list of reservations with added information regarding booked rates and sources.\u003cbr /\u003e Please note that some reservations modification may not be reflected in this timestamp. Optional: propertyID, resultsFrom, resultsTo (plus 14 more).",
+      "method": "GET",
+      "path": "/getReservationsWithRateDetails",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "resultsFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Inferior limit datetime, used to filter reservations, based on booking date"
+        },
+        {
+          "name": "resultsTo",
+          "type": "string",
+          "location": "query",
+          "description": "Superior limit datetime, used to filter reservations, based on booking date. If it is not set, will return the reservations up to current date"
+        },
+        {
+          "name": "modifiedFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Superior limit datetime, used to filter reservations, based on modification date."
+        },
+        {
+          "name": "modifiedTo",
+          "type": "string",
+          "location": "query",
+          "description": "Superior limit datetime, used to filter reservations, based on modification date."
+        },
+        {
+          "name": "sortByRecent",
+          "type": "bool",
+          "location": "query",
+          "description": "Sort response results by most recent action"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "query",
+          "description": "Reservation identifiers, comma-separated, i.e. 37,345,89, used to return transactions limited to the selected reservations."
+        },
+        {
+          "name": "reservationCheckOutFrom",
+          "type": "string",
+          "location": "query",
+          "description": "Superior limit datetime, used to filter reservations, based on reservation check-out date."
+        },
+        {
+          "name": "reservationCheckOutTo",
+          "type": "string",
+          "location": "query",
+          "description": "Superior limit datetime, used to filter reservations, based on reservation check-out date."
+        },
+        {
+          "name": "includeDeleted",
+          "type": "bool",
+          "location": "query",
+          "description": "Include deleted reservations"
+        },
+        {
+          "name": "excludeStatuses",
+          "type": "string",
+          "location": "query",
+          "description": "List of statuses (separated by comma) to be excluded from search"
+        },
+        {
+          "name": "includeGuestsDetails",
+          "type": "bool",
+          "location": "query",
+          "description": "If guests details should be included or not"
+        },
+        {
+          "name": "includeGuestRequirements",
+          "type": "bool",
+          "location": "query",
+          "description": "Includes guest requirements data in the response. Requires `includeGuestsDetails=true`."
+        },
+        {
+          "name": "includeCustomFields",
+          "type": "bool",
+          "location": "query",
+          "description": "If reservation custom fields should be included or not"
+        },
+        {
+          "name": "guestID",
+          "type": "string",
+          "location": "query",
+          "description": "Filters reservations with the supplied Guest ID (Including additional guests)."
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Results page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Results page size. Max = 100"
+        }
+      ]
+    },
+    {
+      "name": "get-room-blocks_list",
+      "description": "Returns a list of all room blocks considering the informed parameters. Optional: propertyID, roomBlockID, roomTypeID (plus 5 more).",
+      "method": "GET",
+      "path": "/getRoomBlocks",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "roomBlockID",
+          "type": "string",
+          "location": "query",
+          "description": "Room block ID"
+        },
+        {
+          "name": "roomTypeID",
+          "type": "string",
+          "location": "query",
+          "description": "Room type ID"
+        },
+        {
+          "name": "roomID",
+          "type": "string",
+          "location": "query",
+          "description": "Room ID"
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "location": "query",
+          "description": "Defaults to today. Start date - will filter for any room blocks that include this date (Date range must be one month or less)"
+        },
+        {
+          "name": "endDate",
+          "type": "string",
+          "location": "query",
+          "description": "Defaults to today. End date - will filter for any room blocks that include this date (Date range must be one month or less)"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Page size"
+        }
+      ]
+    },
+    {
+      "name": "get-room-types_list",
+      "description": "Returns a list of room types filtered by the selected parameters ### Group account support. Optional: propertyIDs, roomTypeIDs, startDate (plus 11 more).",
+      "method": "GET",
+      "path": "/getRoomTypes",
+      "params": [
+        {
+          "name": "propertyIDs",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID list, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "roomTypeIDs",
+          "type": "string",
+          "location": "query",
+          "description": "Room Type ID list, If more than one, send as comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "location": "query",
+          "description": "Check-in date. Required for the rates to be returned."
+        },
+        {
+          "name": "endDate",
+          "type": "string",
+          "location": "query",
+          "description": "Check-out date. Required for the rates to be returned."
+        },
+        {
+          "name": "adults",
+          "type": "int",
+          "location": "query",
+          "description": "Number of adults. Required for the rates to be returned."
+        },
+        {
+          "name": "children",
+          "type": "int",
+          "location": "query",
+          "description": "Number of children. Required for the rates to be returned."
+        },
+        {
+          "name": "detailedRates",
+          "type": "bool",
+          "location": "query",
+          "description": "If detailed rates are expected"
+        },
+        {
+          "name": "roomTypeName",
+          "type": "string",
+          "location": "query",
+          "description": "Room type name, used to filter"
+        },
+        {
+          "name": "propertyCity",
+          "type": "string",
+          "location": "query",
+          "description": "Hotel city, used to filter"
+        },
+        {
+          "name": "propertyName",
+          "type": "string",
+          "location": "query",
+          "description": "Hotel name, used to filter"
+        },
+        {
+          "name": "maxGuests",
+          "type": "string",
+          "location": "query",
+          "description": "Max number of guests, used to filter"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Page size"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "location": "query",
+          "description": "Sorting rules, semicolon-separated. Format: `field[:direction]`, where `direction` is `asc` or `desc`, defaults to `asc` if not provided. Valid fields: `sorting_position`. Examples: - `sort=sorting_position` - `sort=sorting_position:desc`"
+        }
+      ]
+    },
+    {
+      "name": "get-rooms_list",
+      "description": "Returns a list of all rooms considering the informed parameters. If Check-in/out dates are sent, only unassigned rooms are returned. ### Group account support. Optional: propertyIDs, roomTypeID, roomTypeNameShort (plus 6 more).",
+      "method": "GET",
+      "path": "/getRooms",
+      "params": [
+        {
+          "name": "propertyIDs",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID list, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "roomTypeID",
+          "type": "string",
+          "location": "query",
+          "description": "Room type ID, comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "roomTypeNameShort",
+          "type": "string",
+          "location": "query",
+          "description": "Room Type (short-version)"
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "location": "query",
+          "description": "Initial stay date. If sent, only returns unassigned rooms in this period. If not sent, will return all rooms available in property. Necessary if endDate is sent."
+        },
+        {
+          "name": "endDate",
+          "type": "string",
+          "location": "query",
+          "description": "Final stay date. Necessary if startDate is sent."
+        },
+        {
+          "name": "includeRoomRelations",
+          "type": "int",
+          "location": "query",
+          "description": "Determines whether room relations info should be included in the response"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Page number"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Page size"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "location": "query",
+          "description": "Sorting rules, semicolon-separated. Format: `field[:direction]`, where `direction` is `asc` or `desc`, defaults to `asc` if not provided. Valid fields: `room_position`, `sorting_position`. Examples: - `sort=room_position;sorting_position` - `sort=room_position:asc;sorting_position:desc`"
+        }
+      ]
+    },
+    {
+      "name": "get-rooms-fees-and-taxes_list",
+      "description": "Get applicable fees and tax to a booking. This is meant to be used on checkout to display to the guest. Required: startDate, endDate, roomsTotal, roomsCount. Optional: propertyID, adultsPerRoom, childrenPerRoom. Returns the GetRoomsFeesAndTaxesResponse.",
+      "method": "GET",
+      "path": "/getRoomsFeesAndTaxes",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "location": "query",
+          "description": "Check-in date",
+          "required": true
+        },
+        {
+          "name": "endDate",
+          "type": "string",
+          "location": "query",
+          "description": "Check-out date",
+          "required": true
+        },
+        {
+          "name": "roomsTotal",
+          "type": "float",
+          "location": "query",
+          "description": "Total value of the rooms to be booked, with included taxes",
+          "required": true
+        },
+        {
+          "name": "roomsCount",
+          "type": "int",
+          "location": "query",
+          "description": "Number of rooms to be booked",
+          "required": true
+        },
+        {
+          "name": "adultsPerRoom",
+          "type": "int",
+          "location": "query",
+          "description": "Adult occupants per room (applied uniformly across `roomsCount`). Required for `fixed_per_person` taxes/fees to compute non-zero values; otherwise per-person amounts return 0."
+        },
+        {
+          "name": "childrenPerRoom",
+          "type": "int",
+          "location": "query",
+          "description": "Child occupants per room. Same semantics as `adultsPerRoom`."
+        }
+      ]
+    },
+    {
+      "name": "get-rooms-unassigned_list",
+      "description": "Returns a list of unassigned rooms in the property. Call is alias of [getRooms](#api-Room-getRooms). Please check its documentation for parameters, response and example. ### Group account support. Optional: propertyIDs.",
+      "method": "GET",
+      "path": "/getRoomsUnassigned",
+      "params": [
+        {
+          "name": "propertyIDs",
+          "type": "string",
+          "location": "query",
+          "description": "List of property IDs, comma-separated, i.e. 37,345,89"
+        }
+      ]
+    },
+    {
+      "name": "get-sources_list",
+      "description": "Gets available property sources. Optional: propertyIDs. Returns array of GetSourcesListItem.",
+      "method": "GET",
+      "path": "/getSources",
+      "params": [
+        {
+          "name": "propertyIDs",
+          "type": "string",
+          "location": "query",
+          "description": "ID for the properties to be queried (comma-separated, i.e. 37,345,89).\u003cbr /\u003e"
+        }
+      ]
+    },
+    {
+      "name": "get-taxes-and-fees_list",
+      "description": "Returns the taxes and fees set for the property. Read the [Rate-Based tax (Dynamic Tax) guide](https://myfrontdesk.cloudbeds.com/hc/en-us/articles/360014103514-rate-based-tax-dynamic-tax) to understand its usage. Optional: propertyID, includeDeleted (default: false), includeExpired (default: false) (plus 7 more).",
+      "method": "GET",
+      "path": "/getTaxesAndFees",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        },
+        {
+          "name": "includeDeleted",
+          "type": "bool",
+          "location": "query",
+          "description": "If the response should include deleted taxes and fees"
+        },
+        {
+          "name": "includeExpired",
+          "type": "bool",
+          "location": "query",
+          "description": "If the response should include expired taxes and fees"
+        },
+        {
+          "name": "includeCustomItemTaxes",
+          "type": "bool",
+          "location": "query",
+          "description": "If the response should include custom item taxes"
+        },
+        {
+          "name": "availableFor",
+          "type": "string",
+          "location": "query",
+          "description": "Filter by entity type applicability"
+        },
+        {
+          "name": "sourceId",
+          "type": "string",
+          "location": "query",
+          "description": "Filter by booking source ID. Requires isRootSource and isHotelCollectBooking."
+        },
+        {
+          "name": "isRootSource",
+          "type": "bool",
+          "location": "query",
+          "description": "Root source flag. Required with sourceId."
+        },
+        {
+          "name": "isHotelCollectBooking",
+          "type": "bool",
+          "location": "query",
+          "description": "Hotel collect flag. Required with sourceId."
+        },
+        {
+          "name": "productId",
+          "type": "string",
+          "location": "query",
+          "description": "Filter taxes/fees for a product. Mutually exclusive with addonId."
+        },
+        {
+          "name": "addonId",
+          "type": "string",
+          "location": "query",
+          "description": "Filter taxes/fees for an addon (resolves to product). Mutually exclusive with productId."
+        }
+      ]
+    },
+    {
+      "name": "get-users_list",
+      "description": "Returns information on the properties' users ### Group account support. Optional: property_ids.",
+      "method": "GET",
+      "path": "/getUsers",
+      "params": [
+        {
+          "name": "property_ids",
+          "type": "string",
+          "location": "query",
+          "description": "Property numeric identifiers (comma-separated, i.e. 37,345,89)"
+        }
+      ]
+    },
+    {
+      "name": "get-webhooks_list",
+      "description": "List webhooks for which the API client is subscribed to. Optional: propertyID. Returns array of GetWebhooksListItem.",
+      "method": "GET",
+      "path": "/getWebhooks",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "list-allotment-block-notes_list",
+      "description": "List notes added to an allotment block. Required: propertyID, allotmentBlockCode. Optional: status, pageNumber, pageSize. Returns array of ListAllotmentBlockNotesListItem.",
+      "method": "GET",
+      "path": "/listAllotmentBlockNotes",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "query",
+          "description": "Property ID",
+          "required": true
+        },
+        {
+          "name": "allotmentBlockCode",
+          "type": "string",
+          "location": "query",
+          "description": "Allotment block code",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "query",
+          "description": "Note status"
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "location": "query",
+          "description": "Page"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Number of Items per Page (min 1, max 100)"
+        }
+      ]
+    },
+    {
+      "name": "oauth_list",
+      "description": "In the context of properties being distributed across multiple localizations, this endpoint serves to retrieve the precise location of the property associated with the provided access token. Further information can be found in the [Authentication guide](https://integrations.cloudbeds.com/hc/en-us/sections/14731510501915-Authentication). Returns the GetMetadataResponse.",
+      "method": "GET",
+      "path": "/oauth/metadata",
+      "params": []
+    },
+    {
+      "name": "patch-group_create",
+      "description": "Updates an existing group with information provided. At least one information field is required for this call. Optional: address1, address2, city (plus 8 more). Returns array of PatchGroupCreateItem.",
+      "method": "POST",
+      "path": "/patchGroup",
+      "params": [
+        {
+          "name": "address1",
+          "type": "string",
+          "location": "body",
+          "description": "Address line 1 for a group"
+        },
+        {
+          "name": "address2",
+          "type": "string",
+          "location": "body",
+          "description": "Address line 2 for a group"
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "location": "body",
+          "description": "City for a group"
+        },
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "body",
+          "description": "code for a group"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body",
+          "description": "Name for a group"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "sourceID",
+          "type": "string",
+          "location": "body",
+          "description": "Source ID for a group"
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "location": "body",
+          "description": "State for a group"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body",
+          "description": "Group status"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "body",
+          "description": "The type of group"
+        },
+        {
+          "name": "zip",
+          "type": "string",
+          "location": "body",
+          "description": "Zip for a group"
+        }
+      ]
+    },
+    {
+      "name": "patch-rate_create",
+      "description": "Update the rate of the room based on rateID selected, based on the provided parameters. You can make multiple rate updates in a single API call. Providing a startDate and/or endDate will update rates only within the interval provided. Only non derived rates can be updated, requests to update a derived rate will return an error. This endpoint performs updates asynchronously, rate updates are added to a queue and the endpoint returns a job reference ID. This job reference ID can be used to track job status notifications or to look up details of the update once it is completed. The API is limited to 30 interval per update, sending more than 30 will return an error. Optional: rates.",
+      "method": "POST",
+      "path": "/patchRate",
+      "params": [
+        {
+          "name": "rates",
+          "type": "array",
+          "location": "body",
+          "description": "Array of rates to update"
+        }
+      ]
+    },
+    {
+      "name": "post-adjustment_create",
+      "description": "Adds an adjustment to a reservation. Optional: amount, itemID, notes (plus 3 more). Returns the new PostAdjustmentResponse.",
+      "method": "POST",
+      "path": "/postAdjustment",
+      "params": [
+        {
+          "name": "amount",
+          "type": "float",
+          "location": "body",
+          "description": "Adjustment amount"
+        },
+        {
+          "name": "itemID",
+          "type": "string",
+          "location": "body",
+          "description": "Apply Adjustment to. Identifier for: product, tax, fee. Not for rate"
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "location": "body",
+          "description": "Adjustment notes"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation identifier"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "body",
+          "description": "Apply Adjustment to"
+        }
+      ]
+    },
+    {
+      "name": "post-app-error_create",
+      "description": "Submit the error received by the hybrid integration from the partner to the MFD. Optional: description, entityID, entityType (plus 6 more). Returns the new PostAppErrorResponse.",
+      "method": "POST",
+      "path": "/postAppError",
+      "params": [
+        {
+          "name": "description",
+          "type": "string",
+          "location": "body",
+          "description": "Description of the error"
+        },
+        {
+          "name": "entityID",
+          "type": "string",
+          "location": "body",
+          "description": "Unique ID for the entity related to the error"
+        },
+        {
+          "name": "entityType",
+          "type": "string",
+          "location": "body",
+          "description": "Type of the entity related to the error"
+        },
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "location": "body",
+          "description": "Detailed message for error"
+        },
+        {
+          "name": "eventType",
+          "type": "string",
+          "location": "body",
+          "description": "Description for the type of event that caused the error"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property identifier to be queried"
+        },
+        {
+          "name": "statusCode",
+          "type": "string",
+          "location": "body",
+          "description": "HTTP error status code or other error code ID"
+        },
+        {
+          "name": "timestamp",
+          "type": "string",
+          "location": "body",
+          "description": "Date/time that the error was received by the middleware"
+        },
+        {
+          "name": "userID",
+          "type": "string",
+          "location": "body",
+          "description": "User ID for the user that triggered event that caused the error"
+        }
+      ]
+    },
+    {
+      "name": "post-app-property-settings_create",
+      "description": "Post app property settings. Optional: appClientID, key, propertyID (plus 1 more). Returns the new PostAppPropertySettingResponse.",
+      "method": "POST",
+      "path": "/postAppPropertySettings",
+      "params": [
+        {
+          "name": "appClientID",
+          "type": "string",
+          "location": "body",
+          "description": "Application Client ID"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "location": "body",
+          "description": "Key"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "location": "body",
+          "description": "Value"
+        }
+      ]
+    },
+    {
+      "name": "post-app-state_create",
+      "description": "Update app integration state for a property ID. \u003cbr /\u003e This call is only available for third-party integration partners, and not for property client IDs. \u003cbr /\u003e If an app is set to 'disabled', it will remove all active sessions Read the [Connecting/Disconnecting Apps guide](https://integrations.cloudbeds.com/hc/en-us/articles/360007613213-Connecting-Disconnecting-Apps) to further understand the use cases. Optional: app_state, propertyID. Returns the new PostAppStateResponse.",
+      "method": "POST",
+      "path": "/postAppState",
+      "params": [
+        {
+          "name": "app_state",
+          "type": "string",
+          "location": "body",
+          "description": "Current integration state between third-party and property."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property identifier to be updated"
+        }
+      ]
+    },
+    {
+      "name": "post-charge_create",
+      "description": "Use a payment method to process a payment on a reservation, group profile, accounts receivable ledger, or house account. Optional: accountsReceivableLedgerID, amount, cardToken (plus 9 more). Returns the new PostChargeResponse.",
+      "method": "POST",
+      "path": "/postCharge",
+      "params": [
+        {
+          "name": "accountsReceivableLedgerID",
+          "type": "string",
+          "location": "body",
+          "description": "Accounts Receivable Ledger ID"
+        },
+        {
+          "name": "amount",
+          "type": "string",
+          "location": "body",
+          "description": "Amount to charge"
+        },
+        {
+          "name": "cardToken",
+          "type": "string",
+          "location": "body",
+          "description": "cardToken provided by Cloudbeds vault"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "location": "body",
+          "description": "Currency to charge"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "location": "body",
+          "description": "Description of the payment to display on folio"
+        },
+        {
+          "name": "groupID",
+          "type": "string",
+          "location": "body",
+          "description": "Group ID"
+        },
+        {
+          "name": "houseAccountID",
+          "type": "string",
+          "location": "body",
+          "description": "House Account ID"
+        },
+        {
+          "name": "isDeposit",
+          "type": "bool",
+          "location": "body",
+          "description": "determine if this payment is a deposit (default: false)"
+        },
+        {
+          "name": "paymentMethodId",
+          "type": "string",
+          "location": "body",
+          "description": "Payment method UUID"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property id"
+        },
+        {
+          "name": "redirectUrl",
+          "type": "string",
+          "location": "body",
+          "description": "client will be redirected to this page after he completed 3ds challenge. User will be redirected with HTTP get redirect and parameter **result** will be added to query string with possible values: - **failed** if 3ds challenge is not passed - **successful** if 3ds challenge is passed If not provided for card with 3ds the request will be rejected"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation ID"
+        }
+      ]
+    },
+    {
+      "name": "post-credit-card_create",
+      "description": "Returns the rate of the room type selected, based on the provided parameters. Optional: cardToken, paymentMethodId, propertyID (plus 2 more).",
+      "method": "POST",
+      "path": "/postCreditCard",
+      "params": [
+        {
+          "name": "cardToken",
+          "type": "string",
+          "location": "body",
+          "description": "cardToken provided by Stripe JS, not recommended, not required if paymentMethodId is provided"
+        },
+        {
+          "name": "paymentMethodId",
+          "type": "string",
+          "location": "body",
+          "description": "Payment Method ID provided by the payments SDK"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property id"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation id"
+        },
+        {
+          "name": "returnUrl",
+          "type": "string",
+          "location": "body",
+          "description": "client will be redirected to this page after he completed 3ds challenge. User will be redirected with HTTP get redirect and parameter **result** will be added to query string with possible values: - **failed** if 3ds challenge is not passed - **successful** if 3ds challenge is passed If not provided for card with 3ds the request will be rejected"
+        }
+      ]
+    },
+    {
+      "name": "post-custom-field_create",
+      "description": "Sets custom fields. The call should only be made once to add the field to the system. Optional: applyTo (default: reservation), displayed, isPersonal (plus 6 more). Returns the new PostCustomFieldResponse.",
+      "method": "POST",
+      "path": "/postCustomField",
+      "params": [
+        {
+          "name": "applyTo",
+          "type": "string",
+          "location": "body",
+          "description": "Where put this field in reservation or guest section of the booking. reservation - applies the custom field to reservations in myfrontdesk guest - applies the custom field to guest interface in myfrontdesk"
+        },
+        {
+          "name": "displayed",
+          "type": "array",
+          "location": "body",
+          "description": "¹ Specify where this custom field to show up. reservation - applies the custom field to reservation interface in myfrontdesk booking - applies the custom field to the booking engine card - applies the custom field to Registration cards"
+        },
+        {
+          "name": "isPersonal",
+          "type": "bool",
+          "location": "body",
+          "description": "Specifies if the contents of this field may contain personal information. User's personal information may be removed upon request according to GDPR rules."
+        },
+        {
+          "name": "maxCharacters",
+          "type": "int",
+          "location": "body",
+          "description": "Maximum number of characters allowed to be entered in this field."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body",
+          "description": "Field name"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "required",
+          "type": "bool",
+          "location": "body",
+          "description": "Specify whether this field is required to be filled out."
+        },
+        {
+          "name": "shortcode",
+          "type": "string",
+          "location": "body",
+          "description": "Internal reference and is used for integration purposes such as custom links and the API"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "body",
+          "description": "The field's input type."
+        }
+      ]
+    },
+    {
+      "name": "post-custom-item_create",
+      "description": "Adds single, or multiple, custom items and their associated payments to a Reservation or House Account as a single transaction. Optional: groupCode, guestID, guestName (plus 10 more). Returns the new PostCustomItemResponse.",
+      "method": "POST",
+      "path": "/postCustomItem",
+      "params": [
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "body",
+          "description": "Group identifier. Required if no reservationID or houseAccountID is provided."
+        },
+        {
+          "name": "guestID",
+          "type": "string",
+          "location": "body",
+          "description": "Guest identifier"
+        },
+        {
+          "name": "guestName",
+          "type": "string",
+          "location": "body",
+          "description": "(Ignored if guestID exist)"
+        },
+        {
+          "name": "houseAccountID",
+          "type": "string",
+          "location": "body",
+          "description": "House account identifier. Required if no reservationID or groupCode is provided."
+        },
+        {
+          "name": "itemPaid",
+          "type": "bool",
+          "location": "body",
+          "description": "If the item is already paid. Note: If set to true, a payment in cash will be registered for the total value of the item, taxes and fees. If this is not the expected behavior, set to false, and register the operation manually. (Ignored if payments array exist)"
+        },
+        {
+          "name": "items",
+          "type": "array",
+          "location": "body",
+          "description": "list of items will be posted"
+        },
+        {
+          "name": "payments",
+          "type": "array",
+          "location": "body",
+          "description": "list of payments If the item is already paid"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "referenceID",
+          "type": "string",
+          "location": "body",
+          "description": "partner's transaction reference. If exist then Cloudbeds will prevent adding of duplicates"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation identifier. Required if no houseAccountID or groupCode is provided."
+        },
+        {
+          "name": "roomID",
+          "type": "string",
+          "location": "body",
+          "description": "Room identifier (Ignored if subReservationID exist)"
+        },
+        {
+          "name": "saleDate",
+          "type": "string",
+          "location": "body",
+          "description": "Posting date. Defaults to current date."
+        },
+        {
+          "name": "subReservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Sub Reservation identifier"
+        }
+      ]
+    },
+    {
+      "name": "post-custom-payment-method_create",
+      "description": "Add a Custom Payment Method to a property. This call does not allow to add Payment Methods: credit cards, bank transfer or Pay Pal. Optional: method, methodName, propertyID. Returns the new PostCustomPaymentMethodResponse.",
+      "method": "POST",
+      "path": "/postCustomPaymentMethod",
+      "params": [
+        {
+          "name": "method",
+          "type": "string",
+          "location": "body",
+          "description": "Payment Method, value used in future calls. Must be unique for each property and no whitespaces are allowed (use camel case or underline instead). Will be verified against existing Payment Methods, if it exists, will try to enable it."
+        },
+        {
+          "name": "methodName",
+          "type": "string",
+          "location": "body",
+          "description": "Payment Method Name, value used to represent the Payment Method. Can use spaces. If nothing is sent, will use value for method."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID, if not sent will retrieve property ID from credentials, only one property ID call."
+        }
+      ]
+    },
+    {
+      "name": "post-email-schedule_create",
+      "description": "Creates a new email schedule for existing email template. Email template can be scheduled based on two parameters: reservationStatusChange and reservationEvent. Only one of the parameters can be used. *reservationStatusChange* schedules email to be sent when reservation status transitions to a specific one, for instance: `confirmed`. *reservationEvent* schedules email to be sent number of days prior or after a specific event, for instance: `after_check_out` at a given time This call is only available for third-party integration partners, and not for property client IDs. Optional: emailTemplateID, propertyID, schedule (plus 1 more). Returns the new PostEmailScheduleResponse.",
+      "method": "POST",
+      "path": "/postEmailSchedule",
+      "params": [
+        {
+          "name": "emailTemplateID",
+          "type": "string",
+          "location": "body",
+          "description": "ID of the email template that will be used when sending an email."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "schedule",
+          "type": "object",
+          "location": "body",
+          "description": "Schedule"
+        },
+        {
+          "name": "scheduleName",
+          "type": "string",
+          "location": "body",
+          "description": "User friendly schedule name that appears in the list. Should contain app name."
+        }
+      ]
+    },
+    {
+      "name": "post-email-template_create",
+      "description": "Creates a new email template. See the full list of available language parameters \u003ca href='https://integrations.cloudbeds.com/hc/en-us/articles/360007144993-FAQ#methods-and-parameters'\u003ehere\u003c/a\u003e. This call is only available for third-party integration partners, and not for property client IDs. Optional: autofillAllLanguages, bcc, body (plus 9 more). Returns the new PostEmailTemplateResponse.",
+      "method": "POST",
+      "path": "/postEmailTemplate",
+      "params": [
+        {
+          "name": "autofillAllLanguages",
+          "type": "bool",
+          "location": "body",
+          "description": "If set, all languages will be set with the value for the property language. If not informed and only one language is sent, it's considered true, if more than one language is sent, it'll be considered false."
+        },
+        {
+          "name": "bcc",
+          "type": "string",
+          "location": "body",
+          "description": "Email address to which the email message may be sent as a Blind Carbon Copy"
+        },
+        {
+          "name": "body",
+          "type": "object",
+          "location": "body",
+          "description": "Email message body. The body key should be a language code (IETF). A few examples are listed below."
+        },
+        {
+          "name": "cc",
+          "type": "string",
+          "location": "body",
+          "description": "Email address to which the email message may be sent as a Carbon Copy"
+        },
+        {
+          "name": "emailType",
+          "type": "string",
+          "location": "body",
+          "description": "Type of the email template: Marketing or Non-Marketing. Only applicable to GDPR-compliant properties."
+        },
+        {
+          "name": "from",
+          "type": "string",
+          "location": "body",
+          "description": "Email address from which the email message may be sent"
+        },
+        {
+          "name": "fromName",
+          "type": "string",
+          "location": "body",
+          "description": "from which the email message may be sent. If empty email will be used"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body",
+          "description": "Template name"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "replyTo",
+          "type": "string",
+          "location": "body",
+          "description": "Email address to which the email message may be replied. If empty, the value on from parameter will be used."
+        },
+        {
+          "name": "replyToName",
+          "type": "string",
+          "location": "body",
+          "description": "Name to which the email message may be replied. If empty, email will be used."
+        },
+        {
+          "name": "subject",
+          "type": "object",
+          "location": "body",
+          "description": "Email message subject. The subject key should be a language code (IETF). A few examples are listed below."
+        }
+      ]
+    },
+    {
+      "name": "post-file_create",
+      "description": "Attaches a file to a hotel. Optional: file, groupCode, propertyID. Returns the new PostFileResponse.",
+      "method": "POST",
+      "path": "/postFile",
+      "params": [
+        {
+          "name": "file",
+          "type": "string",
+          "location": "body",
+          "description": "Form-based File Upload\u003cbr/\u003e Allowed file types: \u003ccode\u003e*."
+        },
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "body",
+          "description": "optional - the group code if the file is to be attached to a group profile"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "post-government-receipt_create",
+      "description": "Add a Government Receipt to a Reservation or House Account. Optional: amount, houseAccountID, identifier (plus 5 more). Returns the new PostGovernmentReceiptResponse.",
+      "method": "POST",
+      "path": "/postGovernmentReceipt",
+      "params": [
+        {
+          "name": "amount",
+          "type": "float",
+          "location": "body",
+          "description": "Value of posted document"
+        },
+        {
+          "name": "houseAccountID",
+          "type": "string",
+          "location": "body",
+          "description": "House Account identifier. It, or reservationID, is necessary."
+        },
+        {
+          "name": "identifier",
+          "type": "string",
+          "location": "body",
+          "description": "Receipt Identifier of document. If not sent, a random identifier will be generated."
+        },
+        {
+          "name": "issueDate",
+          "type": "string",
+          "location": "body",
+          "description": "Datetime of document emission, if not sent, current datetime will be assumed."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body",
+          "description": "Name of the document. Will be used to describe document in MFD."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property identifier to be updated"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation identifier. It, or houseAccountID, is necessary."
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "location": "body",
+          "description": "URL for user to download document."
+        }
+      ]
+    },
+    {
+      "name": "post-group-note_create",
+      "description": "Adds a group note. Optional: groupCode, groupNote, propertyID. Returns array of PostGroupNoteCreateItem.",
+      "method": "POST",
+      "path": "/postGroupNote",
+      "params": [
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "body",
+          "description": "Group code"
+        },
+        {
+          "name": "groupNote",
+          "type": "string",
+          "location": "body",
+          "description": "Group note"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "post-guest_create",
+      "description": "Adds a guest to reservation as an additional guest. Optional: customFields, guestAddress1, guestAddress2 (plus 24 more). Returns the new PostGuestResponse.",
+      "method": "POST",
+      "path": "/postGuest",
+      "params": [
+        {
+          "name": "customFields",
+          "type": "array",
+          "location": "body",
+          "description": "Only guest custom fields are allowed."
+        },
+        {
+          "name": "guestAddress1",
+          "type": "string",
+          "location": "body",
+          "description": "Guest address1"
+        },
+        {
+          "name": "guestAddress2",
+          "type": "string",
+          "location": "body",
+          "description": "Guest address2"
+        },
+        {
+          "name": "guestBirthDate",
+          "type": "string",
+          "location": "body",
+          "description": "Guest birth date"
+        },
+        {
+          "name": "guestCellPhone",
+          "type": "string",
+          "location": "body",
+          "description": "Guest cell phone"
+        },
+        {
+          "name": "guestCity",
+          "type": "string",
+          "location": "body",
+          "description": "Guest city"
+        },
+        {
+          "name": "guestCompanyName",
+          "type": "string",
+          "location": "body",
+          "description": "Guest company name"
+        },
+        {
+          "name": "guestCompanyTaxId",
+          "type": "string",
+          "location": "body",
+          "description": "Guest company tax ID"
+        },
+        {
+          "name": "guestCountry",
+          "type": "string",
+          "location": "body",
+          "description": "ISO-Code for Country (2 characters)"
+        },
+        {
+          "name": "guestDocumentExpirationDate",
+          "type": "string",
+          "location": "body",
+          "description": "(mandatory when guestDocumentType is sent and is not DNI, NIE, or CPF)"
+        },
+        {
+          "name": "guestDocumentIssueDate",
+          "type": "string",
+          "location": "body",
+          "description": "(mandatory when guestDocumentType is sent and is not DNI or CPF)"
+        },
+        {
+          "name": "guestDocumentIssuingCountry",
+          "type": "string",
+          "location": "body",
+          "description": "Valid ISO-Code for Country (2 characters) (mandatory when guestDocumentType is sent)"
+        },
+        {
+          "name": "guestDocumentNumber",
+          "type": "string",
+          "location": "body",
+          "description": "(mandatory when guestDocumentType is sent)"
+        },
+        {
+          "name": "guestDocumentType",
+          "type": "string",
+          "location": "body",
+          "description": "Document Type\u003cbr /\u003e dni - Identity card\u003cbr /\u003e nie - Residence permit\u003cbr /\u003e na - non selection\u003cbr /\u003e cpf - Brazilian Tax ID\u003cbr /\u003e"
+        },
+        {
+          "name": "guestEmail",
+          "type": "string",
+          "location": "body",
+          "description": "Guest email"
+        },
+        {
+          "name": "guestFirstName",
+          "type": "string",
+          "location": "body",
+          "description": "Guest first name"
+        },
+        {
+          "name": "guestGender",
+          "type": "string",
+          "location": "body",
+          "description": "Guest gender"
+        },
+        {
+          "name": "guestLastName",
+          "type": "string",
+          "location": "body",
+          "description": "Guest last name"
+        },
+        {
+          "name": "guestNote",
+          "type": "string",
+          "location": "body",
+          "description": "Note to be added to the Guest"
+        },
+        {
+          "name": "guestPhone",
+          "type": "string",
+          "location": "body",
+          "description": "Guest phone"
+        },
+        {
+          "name": "guestRequirements",
+          "type": "array",
+          "location": "body",
+          "description": "Object with guest requirements information."
+        },
+        {
+          "name": "guestState",
+          "type": "string",
+          "location": "body",
+          "description": "Guest state"
+        },
+        {
+          "name": "guestTaxId",
+          "type": "string",
+          "location": "body",
+          "description": "Guest tax ID"
+        },
+        {
+          "name": "guestZip",
+          "type": "string",
+          "location": "body",
+          "description": "Guest zip"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation ID"
+        },
+        {
+          "name": "reservationNote",
+          "type": "string",
+          "location": "body",
+          "description": "Note to be added only to the Reservation."
+        }
+      ]
+    },
+    {
+      "name": "post-guest-document_create",
+      "description": "Attaches a document to a guest. Optional: file, guestID, propertyID. Returns the new PostGuestDocumentResponse.",
+      "method": "POST",
+      "path": "/postGuestDocument",
+      "params": [
+        {
+          "name": "file",
+          "type": "string",
+          "location": "body",
+          "description": "Form-based File Upload\u003cbr/\u003e Allowed file types: \u003ccode\u003e*."
+        },
+        {
+          "name": "guestID",
+          "type": "string",
+          "location": "body",
+          "description": "Guest Unique Identifier"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "post-guest-note_create",
+      "description": "Adds a guest note. Optional: guestID, guestNote, propertyID (plus 1 more). Returns the new PostGuestNoteResponse.",
+      "method": "POST",
+      "path": "/postGuestNote",
+      "params": [
+        {
+          "name": "guestID",
+          "type": "string",
+          "location": "body",
+          "description": "Guest ID"
+        },
+        {
+          "name": "guestNote",
+          "type": "string",
+          "location": "body",
+          "description": "Note to be added to guest profile. It's strictly forbidden to send unencrypted payment data through the API. Numeric values longer than 12 characters and considered valid by Luhn's algorithm will be rejected."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "userID",
+          "type": "string",
+          "location": "body",
+          "description": "User ID Identify the actual user that is posting the note"
+        }
+      ]
+    },
+    {
+      "name": "post-guest-photo_create",
+      "description": "Attaches a photo to a guest. Optional: file, guestID. Returns the new PostGuestPhotoResponse.",
+      "method": "POST",
+      "path": "/postGuestPhoto",
+      "params": [
+        {
+          "name": "file",
+          "type": "string",
+          "location": "body",
+          "description": "Form-based File Upload\u003cbr/\u003e Allowed file types: \u003ccode\u003e*.jpg, *.jpeg, *.png, *.gif\u003c/code\u003e\u003cbr/\u003e Allowed max file size: 15MB"
+        },
+        {
+          "name": "guestID",
+          "type": "string",
+          "location": "body",
+          "description": "Guest Unique Identifier"
+        }
+      ]
+    },
+    {
+      "name": "post-guests-to-room_create",
+      "description": "Assigns guest(s) to a room in a reservation and adds these guests as additional guests. Optional: guestIDs, mainGuestId, propertyID (plus 5 more). Returns the new PostGuestsToRoomResponse.",
+      "method": "POST",
+      "path": "/postGuestsToRoom",
+      "params": [
+        {
+          "name": "guestIDs",
+          "type": "string",
+          "location": "body",
+          "description": "Guest ID(s) to be assigned to room. If more than one, send as comma-separated, i.e. 37,345,89"
+        },
+        {
+          "name": "mainGuestId",
+          "type": "string",
+          "location": "body",
+          "description": "Guest ID to promote as main guest of the booking room. MUST be present in guestIDs. When omitted, the room's main guest is left unchanged."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "removeAll",
+          "type": "bool",
+          "location": "body",
+          "description": "If set true, will remove all guests assigned to roomID before assigning guests sent in guestIDs parameter. Main Guest is never removed."
+        },
+        {
+          "name": "removeGuestIDs",
+          "type": "string",
+          "location": "body",
+          "description": "If sent, will remove guest ID(s) before adding guests sent in guestIDs parameter. If more than one, send as comma-separated, i.e. 37,345,89. Main Guest is never removed."
+        },
+        {
+          "name": "removeGuestIDsFromRoom",
+          "type": "string",
+          "location": "body",
+          "description": "If sent, will remove guest ID(s) only from the specified Room ID(s). If more than one, send as comma-separated, i.e. 37,345,89. Incompatible with removeAll parameter."
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation ID"
+        },
+        {
+          "name": "roomID",
+          "type": "int",
+          "location": "body",
+          "description": "Room ID already assigned to Reservation"
+        }
+      ]
+    },
+    {
+      "name": "post-housekeeper_create",
+      "description": "Add New Housekeeper. Optional: name, propertyID. Returns the new PostHousekeeperResponse.",
+      "method": "POST",
+      "path": "/postHousekeeper",
+      "params": [
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body",
+          "description": "Housekeeper name"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "post-housekeeping-assignment_create",
+      "description": "Assign rooms (single or multiple) to an existing housekeeper. Optional: housekeeperID, propertyID, roomIDs. Returns the new PostHousekeepingAssignmentResponse.",
+      "method": "POST",
+      "path": "/postHousekeepingAssignment",
+      "params": [
+        {
+          "name": "housekeeperID",
+          "type": "string",
+          "location": "body",
+          "description": "Housekeeper ID. To designate a room as unassigned, simply set the value to 0."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "roomIDs",
+          "type": "string",
+          "location": "body",
+          "description": "List of room IDs comma-separated, i.e. 37,345,89"
+        }
+      ]
+    },
+    {
+      "name": "post-housekeeping-status_create",
+      "description": "Switches the current date's housekeeping status for a specific room ID to either clean or dirty The housekeeping status is calculated basing on the set of fields roomOccupied | roomCondition | roomBlocked | vacantPickup | roomBlocked | refusedService The available statuses are: - Vacant and Dirty (VD): false | “dirty” | false | false | false | false - Occupied and Dirty (OD): true | “dirty” | false | false | false | false - Vacant and Clean (VC): false | “clean” | false | false | false | false - Occupied and Clean (OC): true | “clean” | false | false | false | false - Occupied and Clean Inspected (OCI): true | “inspected” | false | false | false | false - Vacant and Clean Inspected (VCI): false | “inspected” | false | false | false | false - Do Not Disturb (DND): if doNotDisturb is true - Refused Service (RS): if refusedService is true - Out of Order (OOO): if roomBlocked is true - Vacant and Pickup (VP): if vacantPickup is true. Optional: doNotDisturb, propertyID, refusedService (plus 4 more). Returns the new PostHousekeepingStatusResponse.",
+      "method": "POST",
+      "path": "/postHousekeepingStatus",
+      "params": [
+        {
+          "name": "doNotDisturb",
+          "type": "bool",
+          "location": "body",
+          "description": "New 'do not disturb' status"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "refusedService",
+          "type": "bool",
+          "location": "body",
+          "description": "New 'refused service' status"
+        },
+        {
+          "name": "roomComments",
+          "type": "string",
+          "location": "body",
+          "description": "New room comments."
+        },
+        {
+          "name": "roomCondition",
+          "type": "string",
+          "location": "body",
+          "description": "New room condition. If no optional parameters are sent, will switch from current room condition. 'inspected' status is available only if the property has the feature enabled."
+        },
+        {
+          "name": "roomID",
+          "type": "string",
+          "location": "body",
+          "description": "Room ID"
+        },
+        {
+          "name": "vacantPickup",
+          "type": "bool",
+          "location": "body",
+          "description": "New 'vacant_pickup' status"
+        }
+      ]
+    },
+    {
+      "name": "post-item_create",
+      "description": "Adds an item either to a reservation or to a house account. Optional: groupCode, houseAccountID, itemID (plus 9 more). Returns the new PostItemResponse.",
+      "method": "POST",
+      "path": "/postItem",
+      "params": [
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "body",
+          "description": "Group identifier. Required if no reservationID or houseAccountID is provided."
+        },
+        {
+          "name": "houseAccountID",
+          "type": "string",
+          "location": "body",
+          "description": "House account identifier. Required if no reservationID or groupCode is provided."
+        },
+        {
+          "name": "itemID",
+          "type": "string",
+          "location": "body",
+          "description": "Item identifier"
+        },
+        {
+          "name": "itemNote",
+          "type": "string",
+          "location": "body",
+          "description": "Item note"
+        },
+        {
+          "name": "itemPaid",
+          "type": "bool",
+          "location": "body",
+          "description": "If the item is already paid. Note: If set to true, a payment in cash will be registered for the total value of the item, taxes and fees. If this is not the expected behavior, set to false, and register the operation manually. If payments is set, itemPaid is ignored."
+        },
+        {
+          "name": "itemPrice",
+          "type": "string",
+          "location": "body",
+          "description": "Item price, if not sent, items registered price will be used"
+        },
+        {
+          "name": "itemQuantity",
+          "type": "int",
+          "location": "body",
+          "description": "Items quantity"
+        },
+        {
+          "name": "payments",
+          "type": "array",
+          "location": "body",
+          "description": "list of payments If the item is already paid"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation identifier. Required if no houseAccountID or groupCode is provided."
+        },
+        {
+          "name": "saleDate",
+          "type": "string",
+          "location": "body",
+          "description": "Posting date. Defaults to current date."
+        },
+        {
+          "name": "subReservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Sub Reservation identifier."
+        }
+      ]
+    },
+    {
+      "name": "post-item-category_create",
+      "description": "Adds new items category. Optional: categoryCode, categoryColor (default: #ccc), categoryName (plus 2 more). Returns the new PostItemCategoryResponse.",
+      "method": "POST",
+      "path": "/postItemCategory",
+      "params": [
+        {
+          "name": "categoryCode",
+          "type": "string",
+          "location": "body",
+          "description": "Category code"
+        },
+        {
+          "name": "categoryColor",
+          "type": "string",
+          "location": "body",
+          "description": "Category color (like #3b7be7)"
+        },
+        {
+          "name": "categoryName",
+          "type": "string",
+          "location": "body",
+          "description": "Category name"
+        },
+        {
+          "name": "itemID",
+          "type": "array",
+          "location": "body",
+          "description": "Existing ItemIDs to reassign to new category"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "post-items-to-inventory_create",
+      "description": "Adds new items batch\u003cbr /\u003e ¹ only if item.stockInventory = true\u003cbr /\u003e. Optional: item. Returns array of PostItemsToInventoryCreateItem.",
+      "method": "POST",
+      "path": "/postItemsToInventory",
+      "params": [
+        {
+          "name": "item",
+          "type": "object",
+          "location": "body",
+          "description": "Items"
+        }
+      ]
+    },
+    {
+      "name": "post-new-house-account_create",
+      "description": "Add a new House Account. Optional: accountName, isPrivate (default: false), propertyID. Returns the new PostNewHouseAccountResponse.",
+      "method": "POST",
+      "path": "/postNewHouseAccount",
+      "params": [
+        {
+          "name": "accountName",
+          "type": "string",
+          "location": "body",
+          "description": "House Account name"
+        },
+        {
+          "name": "isPrivate",
+          "type": "bool",
+          "location": "body",
+          "description": "Whether House Account is available only to user"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "post-payment_create",
+      "description": "Add a payment to a specified reservation, house account, or group. If multiple IDs are provided, precedence is reservationID, then houseAccountID, then groupCode. Optional: amount, cardType, description (plus 7 more). Returns the new PostPaymentResponse.",
+      "method": "POST",
+      "path": "/postPayment",
+      "params": [
+        {
+          "name": "amount",
+          "type": "float",
+          "location": "body",
+          "description": "Amount paid on this transaction"
+        },
+        {
+          "name": "cardType",
+          "type": "string",
+          "location": "body",
+          "description": "If type = credit, cardType is necessary. Allowed values are property based, but possible strings are: 'visa','master','amex','aura','diners','hiper','elo','Discover','jcb','maestro','dan','PostCard','Eurocard','union_pay'"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "location": "body",
+          "description": "Note to be added to payment"
+        },
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "body",
+          "description": "Group Code. Required if neither reservationID nor houseAccountID is sent"
+        },
+        {
+          "name": "houseAccountID",
+          "type": "string",
+          "location": "body",
+          "description": "House Account identifier is necessary if reservationID not sent"
+        },
+        {
+          "name": "isDeposit",
+          "type": "bool",
+          "location": "body",
+          "description": "determine if this payment is a deposit (default: false)"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation identifier"
+        },
+        {
+          "name": "subReservationID",
+          "type": "string",
+          "location": "body",
+          "description": "The Sub Reservation identifier. reservationID is still mandatory if subReservationID is sent."
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "body",
+          "description": "Payment type. Use the call [getPaymentMethods](#api-Payment-getPaymentMethods) to get the properties enabled payment methods."
+        }
+      ]
+    },
+    {
+      "name": "post-reservation_create",
+      "description": "Adds a reservation to the selected property. Optional: adults, allotmentBlockCode, cardToken (plus 23 more). Returns the new PostReservationResponse.",
+      "method": "POST",
+      "path": "/postReservation",
+      "params": [
+        {
+          "name": "adults",
+          "type": "array",
+          "location": "body",
+          "description": "Array with number of adults"
+        },
+        {
+          "name": "allotmentBlockCode",
+          "type": "string",
+          "location": "body",
+          "description": "Allotment block code to add reservation to allotment block."
+        },
+        {
+          "name": "cardToken",
+          "type": "string",
+          "location": "body",
+          "description": "Credit Card identifier. Payment Method must be credit. This field should be filled with credit card identifier according to gateway. Only available for Stripe and should send the Customer ID."
+        },
+        {
+          "name": "children",
+          "type": "array",
+          "location": "body",
+          "description": "Array with number of children"
+        },
+        {
+          "name": "customFields",
+          "type": "array",
+          "location": "body",
+          "description": "Array with custom fields information"
+        },
+        {
+          "name": "dateCreated",
+          "type": "string",
+          "location": "body",
+          "description": "Date reservation was made. Defaults to current date if omitted."
+        },
+        {
+          "name": "endDate",
+          "type": "string",
+          "location": "body",
+          "description": "Check-Out date."
+        },
+        {
+          "name": "estimatedArrivalTime",
+          "type": "string",
+          "location": "body",
+          "description": "Estimated Arrival Time, 24-hour format."
+        },
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "body",
+          "description": "Code from the Aggregate Allotment block the reservation will be added to."
+        },
+        {
+          "name": "guestCountry",
+          "type": "string",
+          "location": "body",
+          "description": "Valid ISO-Code for Country (2 characters)"
+        },
+        {
+          "name": "guestEmail",
+          "type": "string",
+          "location": "body",
+          "description": "Guest email"
+        },
+        {
+          "name": "guestFirstName",
+          "type": "string",
+          "location": "body",
+          "description": "First name of the guest"
+        },
+        {
+          "name": "guestGender",
+          "type": "string",
+          "location": "body",
+          "description": "Guest gender"
+        },
+        {
+          "name": "guestLastName",
+          "type": "string",
+          "location": "body",
+          "description": "Last name of the guest"
+        },
+        {
+          "name": "guestPhone",
+          "type": "string",
+          "location": "body",
+          "description": "Guest main phone number"
+        },
+        {
+          "name": "guestRequirements",
+          "type": "array",
+          "location": "body",
+          "description": "Object with guest requirements information."
+        },
+        {
+          "name": "guestZip",
+          "type": "string",
+          "location": "body",
+          "description": "ZIP Code"
+        },
+        {
+          "name": "paymentAuthorizationCode",
+          "type": "string",
+          "location": "body",
+          "description": "Transaction identifier. Payment Method must be credit. This field should be filled with transaction identifier according to gateway. Only available for Stripe and it should be filled with Charge ID associated to the Payment Intent."
+        },
+        {
+          "name": "paymentMethod",
+          "type": "string",
+          "location": "body",
+          "description": "Payment Method of choice."
+        },
+        {
+          "name": "promoCode",
+          "type": "string",
+          "location": "body",
+          "description": "Promotional code. Required for specials and packages that uses it. 'rateID' parameter required for using 'promoCode'."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "rooms",
+          "type": "array",
+          "location": "body",
+          "description": "Array with quantity of rooms"
+        },
+        {
+          "name": "sendEmailConfirmation",
+          "type": "bool",
+          "location": "body",
+          "description": "Send confirmation email to guest."
+        },
+        {
+          "name": "sourceID",
+          "type": "string",
+          "location": "body",
+          "description": "The source ID for this reservation. Accepted formats:\u003cbr /\u003e 's-{id}' for primary sources (no suffix), or\u003cbr /\u003e 'ss-{id}-0' / 'ss-{id}-1' for third-party sources (suffix required: 0 = channel-collect, 1 = hotel-collect). The format must match the source type."
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "location": "body",
+          "description": "Check-In date."
+        },
+        {
+          "name": "thirdPartyIdentifier",
+          "type": "string",
+          "location": "body",
+          "description": "If it was received from a booking channel, this can be an identifier from that channel."
+        }
+      ]
+    },
+    {
+      "name": "post-reservation-document_create",
+      "description": "Attaches a document to a reservation. Optional: file, propertyID, reservationID. Returns the new PostReservationDocumentResponse.",
+      "method": "POST",
+      "path": "/postReservationDocument",
+      "params": [
+        {
+          "name": "file",
+          "type": "string",
+          "location": "body",
+          "description": "Form-based File Upload\u003cbr/\u003e Allowed file types: \u003ccode\u003e*."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation Unique Identifier"
+        }
+      ]
+    },
+    {
+      "name": "post-reservation-note_create",
+      "description": "Adds a reservation note. Optional: dateCreated, propertyID, reservationID (plus 2 more). Returns the new PostReservationNoteResponse.",
+      "method": "POST",
+      "path": "/postReservationNote",
+      "params": [
+        {
+          "name": "dateCreated",
+          "type": "string",
+          "location": "body",
+          "description": "Datetime the note was created."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation Unique Identifier"
+        },
+        {
+          "name": "reservationNote",
+          "type": "string",
+          "location": "body",
+          "description": "Note to be added to reservation"
+        },
+        {
+          "name": "userID",
+          "type": "string",
+          "location": "body",
+          "description": "User ID Identify the actual user that is posting the note"
+        }
+      ]
+    },
+    {
+      "name": "post-room-assign_create",
+      "description": "Assign/Reassign a room on a guest reservation. Optional: adjustPrice (default: false), newRoomID, oldRoomID (plus 6 more). Returns the new PostRoomAssignResponse.",
+      "method": "POST",
+      "path": "/postRoomAssign",
+      "params": [
+        {
+          "name": "adjustPrice",
+          "type": "bool",
+          "location": "body",
+          "description": "If room assignment would result in an upcharge or discount, this parameter needs to be set to true to approve the charges. If not set, the rate will retain its original value."
+        },
+        {
+          "name": "newRoomID",
+          "type": "string",
+          "location": "body",
+          "description": "Room ID of the room that will be assigned. Empty field must be sent if you want to unassign a room."
+        },
+        {
+          "name": "oldRoomID",
+          "type": "string",
+          "location": "body",
+          "description": "Room ID of the room that was assigned. Need to be provided in case of reassignment."
+        },
+        {
+          "name": "overrideRates",
+          "type": "bool",
+          "location": "body",
+          "description": "Deprecated. Please use adjustPrice instead. Setting overrideRates=true will have the opposite of the effect that the name implies. It will cause the rates to NOT be overridden, but instead to be recalculated based on the new room assignment."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation identifier"
+        },
+        {
+          "name": "reservationRoomID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation room ID. Must be set if you want to unassign a room."
+        },
+        {
+          "name": "roomTypeID",
+          "type": "string",
+          "location": "body",
+          "description": "Room Type ID of the room that will be assigned. Need to be provided in case of assignment."
+        },
+        {
+          "name": "subReservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Sub Reservation identifier"
+        }
+      ]
+    },
+    {
+      "name": "post-room-block_create",
+      "description": "Adds a room block to the selected property. Optional: email, endDate, firstName (plus 8 more). Returns the new PostRoomBlockResponse.",
+      "method": "POST",
+      "path": "/postRoomBlock",
+      "params": [
+        {
+          "name": "email",
+          "type": "string",
+          "location": "body",
+          "description": "Email address - for courtesy hold updates"
+        },
+        {
+          "name": "endDate",
+          "type": "string",
+          "location": "body",
+          "description": "Room block end date"
+        },
+        {
+          "name": "firstName",
+          "type": "string",
+          "location": "body",
+          "description": "First name - for courtesy hold updates"
+        },
+        {
+          "name": "lastName",
+          "type": "string",
+          "location": "body",
+          "description": "Last name - for courtesy hold updates"
+        },
+        {
+          "name": "lengthOfHoldInHours",
+          "type": "int",
+          "location": "body",
+          "description": "Length of hold in hours - for courtesy hold updates"
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "location": "body",
+          "description": "Phone number - for courtesy hold updates"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "roomBlockReason",
+          "type": "string",
+          "location": "body",
+          "description": "Room block reason"
+        },
+        {
+          "name": "roomBlockType",
+          "type": "string",
+          "location": "body",
+          "description": "Room block type. ‘blocked’ - Room block. ‘out_of_service’ - Out of service block. 'courtesy_hold' - Courtesy hold block."
+        },
+        {
+          "name": "rooms",
+          "type": "array",
+          "location": "body",
+          "description": "All rooms for room block. When multiple rooms are submitted they will be created under the same roomBlockID. For properties using split inventory (virtual rooms linked to physical rooms), only provide the source rooms you want to block. Linked rooms will be automatically added. Do not include auto-added linked rooms in the request - the API will reject requests that include both a source room and its linked room(s)."
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "location": "body",
+          "description": "Room block start date"
+        }
+      ]
+    },
+    {
+      "name": "post-room-check-in_create",
+      "description": "Check-in a room already assigned for a guest. Optional: propertyID, reservationID, roomID (plus 1 more). Returns the new PostRoomCheckInResponse.",
+      "method": "POST",
+      "path": "/postRoomCheckIn",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation identifier"
+        },
+        {
+          "name": "roomID",
+          "type": "string",
+          "location": "body",
+          "description": "Room ID of the room that will be checked-in."
+        },
+        {
+          "name": "subReservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Sub Reservation identifier, allows for granular control over what room is being checked-in. If sent, roomID is ignored."
+        }
+      ]
+    },
+    {
+      "name": "post-room-check-out_create",
+      "description": "Check-out a room already assigned for a guest. If all rooms are checked out, the reservation status will update accordingly to 'Checked Out' as well. Optional: propertyID, reservationID, roomID (plus 1 more). Returns the new PostRoomCheckOutResponse.",
+      "method": "POST",
+      "path": "/postRoomCheckOut",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation identifier"
+        },
+        {
+          "name": "roomID",
+          "type": "string",
+          "location": "body",
+          "description": "Room ID of the room that will be checked out."
+        },
+        {
+          "name": "subReservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Sub Reservation identifier, allows for granular control over what room is being checked out. If sent, roomID is ignored."
+        }
+      ]
+    },
+    {
+      "name": "post-void-item_create",
+      "description": "Voids the itemID transaction on the specified Reservation ID, House Account ID, or Group. If payments were sent in calls [postItem](https://developers.cloudbeds.com/reference/post_postitem) or [postCustomItem](https://developers.cloudbeds.com/reference/post_postcustomitem), they will be deleted too. Optional: groupCode, houseAccountID, propertyID (plus 2 more). Returns the new PostVoidItemResponse.",
+      "method": "POST",
+      "path": "/postVoidItem",
+      "params": [
+        {
+          "name": "groupCode",
+          "type": "string",
+          "location": "body",
+          "description": "Group identifier. Required if no reservationID or houseAccountID is provided."
+        },
+        {
+          "name": "houseAccountID",
+          "type": "string",
+          "location": "body",
+          "description": "House Account identifier. Required if no reservationID or groupCode is provided."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation identifier. Required if no houseAccountID or groupCode is provided."
+        },
+        {
+          "name": "soldProductID",
+          "type": "string",
+          "location": "body",
+          "description": "Item identifier"
+        }
+      ]
+    },
+    {
+      "name": "post-void-payment_create",
+      "description": "Voids a payment (using paymentID) to a specified reservation or house account. Optional: houseAccountID, paymentID, propertyID (plus 1 more). Returns the new PostVoidPaymentResponse.",
+      "method": "POST",
+      "path": "/postVoidPayment",
+      "params": [
+        {
+          "name": "houseAccountID",
+          "type": "string",
+          "location": "body",
+          "description": "House Account identifier is necessary if reservationID not sent"
+        },
+        {
+          "name": "paymentID",
+          "type": "string",
+          "location": "body",
+          "description": "paymentID of transaction that should be voided."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation identifier"
+        }
+      ]
+    },
+    {
+      "name": "post-webhook_create",
+      "description": "Subscribe a webhook for a specified event. Read the [Webhooks guide](https://integrations.cloudbeds.com/hc/en-us/articles/360007612553-Webhooks) to see available objects, actions, payload info and more. Optional: action, endpointUrl, object (plus 1 more). Returns the new PostWebhookResponse.",
+      "method": "POST",
+      "path": "/postWebhook",
+      "params": [
+        {
+          "name": "action",
+          "type": "string",
+          "location": "body",
+          "description": "Event action"
+        },
+        {
+          "name": "endpointUrl",
+          "type": "string",
+          "location": "body",
+          "description": "Endpoint URL"
+        },
+        {
+          "name": "object",
+          "type": "string",
+          "location": "body",
+          "description": "Event object"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "put-app-property-settings_create",
+      "description": "Put app property settings. Optional: key, propertyID, value. Returns the new PostPutAppPropertySettingsResponse.",
+      "method": "POST",
+      "path": "/putAppPropertySettings",
+      "params": [
+        {
+          "name": "key",
+          "type": "string",
+          "location": "body",
+          "description": "Key"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "location": "body",
+          "description": "Value"
+        }
+      ]
+    },
+    {
+      "name": "put-group_create",
+      "description": "Adds a group to the property. Please note that the default setting for 'Route to Group Folio' will be 'No,' and the 'Reservation Folio Configuration' will be set as the default folio configuration. You can edit these settings through the user interface (UI). Optional: address1, address2, city (plus 8 more). Returns array of PutGroupCreateItem.",
+      "method": "POST",
+      "path": "/putGroup",
+      "params": [
+        {
+          "name": "address1",
+          "type": "string",
+          "location": "body",
+          "description": "Address line 1 for a group"
+        },
+        {
+          "name": "address2",
+          "type": "string",
+          "location": "body",
+          "description": "Address line 2 for a group"
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "location": "body",
+          "description": "City for a group"
+        },
+        {
+          "name": "commissionType",
+          "type": "string",
+          "location": "body",
+          "description": "Commission Type"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body",
+          "description": "Name for a group"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "sourceID",
+          "type": "string",
+          "location": "body",
+          "description": "Source ID for a group"
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "location": "body",
+          "description": "State for a group"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body",
+          "description": "Group status"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "body",
+          "description": "The type of group"
+        },
+        {
+          "name": "zip",
+          "type": "string",
+          "location": "body",
+          "description": "Zip for a group"
+        }
+      ]
+    },
+    {
+      "name": "put-guest_update",
+      "description": "Updates an existing guest with information provided. At least one information field is required for this call. Optional: guestAddress1, guestAddress2, guestBirthDate (plus 22 more). Returns the updated PutGuestResponse.",
+      "method": "PUT",
+      "path": "/putGuest",
+      "params": [
+        {
+          "name": "guestAddress1",
+          "type": "string",
+          "location": "body",
+          "description": "Guest address1"
+        },
+        {
+          "name": "guestAddress2",
+          "type": "string",
+          "location": "body",
+          "description": "Guest address2"
+        },
+        {
+          "name": "guestBirthDate",
+          "type": "string",
+          "location": "body",
+          "description": "Guest birth date"
+        },
+        {
+          "name": "guestCellPhone",
+          "type": "string",
+          "location": "body",
+          "description": "Guest cell phone"
+        },
+        {
+          "name": "guestCity",
+          "type": "string",
+          "location": "body",
+          "description": "Guest city"
+        },
+        {
+          "name": "guestCompanyName",
+          "type": "string",
+          "location": "body",
+          "description": "Guest company name"
+        },
+        {
+          "name": "guestCompanyTaxId",
+          "type": "string",
+          "location": "body",
+          "description": "Guest company tax ID"
+        },
+        {
+          "name": "guestCountry",
+          "type": "string",
+          "location": "body",
+          "description": "ISO-Code for Country (2 characters)"
+        },
+        {
+          "name": "guestCustomFields",
+          "type": "array",
+          "location": "body",
+          "description": "Guest custom fields"
+        },
+        {
+          "name": "guestDocumentExpirationDate",
+          "type": "string",
+          "location": "body",
+          "description": "(mandatory when guestDocumentType is sent and is not DNI, NIE, or CPF)"
+        },
+        {
+          "name": "guestDocumentIssueDate",
+          "type": "string",
+          "location": "body",
+          "description": "(mandatory when guestDocumentType is sent and is not DNI or CPF)"
+        },
+        {
+          "name": "guestDocumentIssuingCountry",
+          "type": "string",
+          "location": "body",
+          "description": "ISO-Code for Country (2 characters) (mandatory when guestDocumentType is sent)"
+        },
+        {
+          "name": "guestDocumentNumber",
+          "type": "string",
+          "location": "body",
+          "description": "(mandatory when guestDocumentType is sent)"
+        },
+        {
+          "name": "guestDocumentType",
+          "type": "string",
+          "location": "body",
+          "description": "It is mandatory to send all document information\u003cbr /\u003e na - non selection\u003cbr /\u003e dni - Identity card\u003cbr /\u003e nie - Residence permit\u003cbr /\u003e cpf - Brazilian Tax ID\u003cbr /\u003e"
+        },
+        {
+          "name": "guestEmail",
+          "type": "string",
+          "location": "body",
+          "description": "Guest email"
+        },
+        {
+          "name": "guestFirstName",
+          "type": "string",
+          "location": "body",
+          "description": "Guest first name"
+        },
+        {
+          "name": "guestGender",
+          "type": "string",
+          "location": "body",
+          "description": "Guest gender"
+        },
+        {
+          "name": "guestID",
+          "type": "string",
+          "location": "body",
+          "description": "Valid Guest ID"
+        },
+        {
+          "name": "guestLastName",
+          "type": "string",
+          "location": "body",
+          "description": "Guest last name"
+        },
+        {
+          "name": "guestPhone",
+          "type": "string",
+          "location": "body",
+          "description": "Guest phone"
+        },
+        {
+          "name": "guestRequirements",
+          "type": "array",
+          "location": "body",
+          "description": "Object with guest requirements information."
+        },
+        {
+          "name": "guestState",
+          "type": "string",
+          "location": "body",
+          "description": "Guest state"
+        },
+        {
+          "name": "guestTaxId",
+          "type": "string",
+          "location": "body",
+          "description": "Guest tax ID unencrypted payment data through the API. Numeric values longer than 12 characters and considered valid by Luhn's algorithm will be rejected."
+        },
+        {
+          "name": "guestZip",
+          "type": "string",
+          "location": "body",
+          "description": "Guest zip"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "put-guest-note_update",
+      "description": "Updates an existing guest note. Optional: guestID, guestNote, noteID (plus 1 more). Returns the updated PutGuestNoteResponse.",
+      "method": "PUT",
+      "path": "/putGuestNote",
+      "params": [
+        {
+          "name": "guestID",
+          "type": "string",
+          "location": "body",
+          "description": "Guest ID"
+        },
+        {
+          "name": "guestNote",
+          "type": "string",
+          "location": "body",
+          "description": "Note to be added to guest profile. It's strictly forbidden to send unencrypted payment data through the API. Numeric values longer than 12 characters and considered valid by Luhn's algorithm will be rejected."
+        },
+        {
+          "name": "noteID",
+          "type": "string",
+          "location": "body",
+          "description": "Note ID"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "put-house-account-status_update",
+      "description": "Change specific house account to either open or closed. Optional: houseAccountID, propertyID, status. Returns the updated PutHouseAccountStatusResponse.",
+      "method": "PUT",
+      "path": "/putHouseAccountStatus",
+      "params": [
+        {
+          "name": "houseAccountID",
+          "type": "string",
+          "location": "body",
+          "description": "House Account ID"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body",
+          "description": "House Account status"
+        }
+      ]
+    },
+    {
+      "name": "put-housekeeper_update",
+      "description": "Edit Housekeeper Details. Optional: housekeeperID, name, propertyID. Returns the updated PutHousekeeperResponse.",
+      "method": "PUT",
+      "path": "/putHousekeeper",
+      "params": [
+        {
+          "name": "housekeeperID",
+          "type": "string",
+          "location": "body",
+          "description": "Housekeeper ID"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body",
+          "description": "Housekeeper name"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        }
+      ]
+    },
+    {
+      "name": "put-item-to-inventory_update",
+      "description": "Updates an item with information provided\u003cbr /\u003e ¹ only if item.stockInventory = true\u003cbr /\u003e. Optional: itemCode, itemDescription, itemID (plus 10 more). Returns the updated PutItemToInventoryResponse.",
+      "method": "PUT",
+      "path": "/putItemToInventory",
+      "params": [
+        {
+          "name": "itemCode",
+          "type": "string",
+          "location": "body",
+          "description": "Item code"
+        },
+        {
+          "name": "itemDescription",
+          "type": "string",
+          "location": "body",
+          "description": "Item description"
+        },
+        {
+          "name": "itemID",
+          "type": "string",
+          "location": "body",
+          "description": "Item identifier"
+        },
+        {
+          "name": "itemName",
+          "type": "string",
+          "location": "body",
+          "description": "Item name"
+        },
+        {
+          "name": "itemPrice",
+          "type": "float",
+          "location": "body",
+          "description": "Item price"
+        },
+        {
+          "name": "itemQuantity",
+          "type": "int",
+          "location": "body",
+          "description": "¹ Current amount of item available"
+        },
+        {
+          "name": "itemSKU",
+          "type": "string",
+          "location": "body",
+          "description": "Item SKU. Will be generated if not set"
+        },
+        {
+          "name": "itemType",
+          "type": "string",
+          "location": "body",
+          "description": "Item type"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reorderThreshold",
+          "type": "int",
+          "location": "body",
+          "description": "¹ Quantity at which to reorder item"
+        },
+        {
+          "name": "stockInventory",
+          "type": "bool",
+          "location": "body",
+          "description": "Track stock inventory for this item"
+        },
+        {
+          "name": "stopSell",
+          "type": "int",
+          "location": "body",
+          "description": "¹ Quantity at which to stop selling product."
+        },
+        {
+          "name": "stopSellMet",
+          "type": "bool",
+          "location": "body",
+          "description": "¹ true - Whether item is at or below value set for stop-sell threshold."
+        }
+      ]
+    },
+    {
+      "name": "put-rate_create",
+      "description": "Update the rate of the room based on rateID selected, based on the provided parameters. You can make multiple rate updates in a single API call. Providing a startDate and/or endDate will update rates only within the interval provided. Only non derived rates can be updated, requests to update a derived rate will return an error. This endpoint performs updates asynchronously, rate updates are added to a queue and the endpoint returns a job reference ID. This job reference ID can be used to track job status notifications or to look up details of the update once it is completed. The API is limited to 30 interval per update, sending more than 30 will return an error. Optional: rates.",
+      "method": "POST",
+      "path": "/putRate",
+      "params": [
+        {
+          "name": "rates",
+          "type": "array",
+          "location": "body",
+          "description": "Array of rates to update"
+        }
+      ]
+    },
+    {
+      "name": "put-reservation_update",
+      "description": "Updates a reservation, such as custom fields, estimated arrival time, room configuration and reservation status. Optional: allotmentBlockCode, checkoutDate, customFields (plus 8 more). Returns the updated PutReservationResponse.",
+      "method": "PUT",
+      "path": "/putReservation",
+      "params": [
+        {
+          "name": "allotmentBlockCode",
+          "type": "string",
+          "location": "body",
+          "description": "Allotment block code to link the reservation to. Send null to unlink. If provided along with eventCode, the allotment block must belong to the event."
+        },
+        {
+          "name": "checkoutDate",
+          "type": "string",
+          "location": "body",
+          "description": "Update the checkoutDate across the whole reservation"
+        },
+        {
+          "name": "customFields",
+          "type": "array",
+          "location": "body",
+          "description": "Array with custom fields information"
+        },
+        {
+          "name": "dateCreated",
+          "type": "string",
+          "location": "body",
+          "description": "Date reservation was made. Do not change if omitted."
+        },
+        {
+          "name": "estimatedArrivalTime",
+          "type": "string",
+          "location": "body",
+          "description": "Estimated Arrival Time, 24-hour format."
+        },
+        {
+          "name": "eventCode",
+          "type": "string",
+          "location": "body",
+          "description": "Event (group profile) code to link the reservation to. Send null to unlink. When sent without allotmentBlockCode, links to the group profile only."
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation Unique Identifier, one reservation ID per call."
+        },
+        {
+          "name": "rooms",
+          "type": "array",
+          "location": "body",
+          "description": "Array with rooms information to change accommodations assigned to the reservation"
+        },
+        {
+          "name": "sendStatusChangeEmail",
+          "type": "bool",
+          "location": "body",
+          "description": "Send email on reservation status change to property and guest."
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation status\u003cbr /\u003e 'confirmed' - Reservation is confirmed\u003cbr /\u003e 'not_confirmed' - Reservation not passed confirmation\u003cbr /\u003e 'canceled' - Reservation is canceled\u003cbr /\u003e 'checked_in' - Guest is in hotel\u003cbr /\u003e 'checked_out' - Guest already left hotel\u003cbr /\u003e 'no_show' - Guest didn't showed up on check-in date"
+        }
+      ]
+    },
+    {
+      "name": "put-reservation-note_update",
+      "description": "Updates an existing reservation note. Optional: propertyID, reservationID, reservationNote (plus 1 more). Returns the updated PutReservationNoteResponse.",
+      "method": "PUT",
+      "path": "/putReservationNote",
+      "params": [
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "reservationID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation Unique Identifier"
+        },
+        {
+          "name": "reservationNote",
+          "type": "string",
+          "location": "body",
+          "description": "Note to be added to reservation"
+        },
+        {
+          "name": "reservationNoteID",
+          "type": "string",
+          "location": "body",
+          "description": "Reservation Note ID"
+        }
+      ]
+    },
+    {
+      "name": "put-room-block_update",
+      "description": "Updates a room block. Optional: email, endDate, firstName (plus 8 more). Returns the updated PutRoomBlockResponse.",
+      "method": "PUT",
+      "path": "/putRoomBlock",
+      "params": [
+        {
+          "name": "email",
+          "type": "string",
+          "location": "body",
+          "description": "Email address - for courtesy hold updates"
+        },
+        {
+          "name": "endDate",
+          "type": "string",
+          "location": "body",
+          "description": "Room block end date"
+        },
+        {
+          "name": "firstName",
+          "type": "string",
+          "location": "body",
+          "description": "First name - for courtesy hold updates"
+        },
+        {
+          "name": "lastName",
+          "type": "string",
+          "location": "body",
+          "description": "Last name - for courtesy hold updates"
+        },
+        {
+          "name": "lengthOfHoldInHours",
+          "type": "int",
+          "location": "body",
+          "description": "Length of hold in hours - for courtesy hold updates"
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "location": "body",
+          "description": "Phone number - for courtesy hold updates"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "roomBlockID",
+          "type": "string",
+          "location": "body",
+          "description": "Room block ID"
+        },
+        {
+          "name": "roomBlockReason",
+          "type": "string",
+          "location": "body",
+          "description": "Room block reason"
+        },
+        {
+          "name": "rooms",
+          "type": "array",
+          "location": "body",
+          "description": "All rooms for room block. When multiple rooms are submitted they will be created under the same roomBlockID. For properties using split inventory (virtual rooms linked to physical rooms), only provide the source rooms you want to block. Linked rooms will be automatically added. Do not include auto-added linked rooms in the request - the API will reject requests that include both a source room and its linked room(s). Auto-added rooms cannot be individually swapped out; to remove an auto-added room, you must remove or swap its source room."
+        },
+        {
+          "name": "startDate",
+          "type": "string",
+          "location": "body",
+          "description": "Room block start date"
+        }
+      ]
+    },
+    {
+      "name": "update-allotment-block_create",
+      "description": "Update an allotment block @apiQuery {Integer} propertyID Property ID. Optional: allotmentBlockCode, allotmentBlockName, allotmentBlockStatus (plus 4 more). Returns array of UpdateAllotmentBlockCreateItem.",
+      "method": "POST",
+      "path": "/updateAllotmentBlock",
+      "params": [
+        {
+          "name": "allotmentBlockCode",
+          "type": "string",
+          "location": "body",
+          "description": "The allotment block code identifying the allotment block to update"
+        },
+        {
+          "name": "allotmentBlockName",
+          "type": "string",
+          "location": "body",
+          "description": "The name for the allotment block"
+        },
+        {
+          "name": "allotmentBlockStatus",
+          "type": "string",
+          "location": "body",
+          "description": "The status for the allotment block under"
+        },
+        {
+          "name": "allotmentIntervals",
+          "type": "array",
+          "location": "body",
+          "description": "The day-based data for the allotment block."
+        },
+        {
+          "name": "allotmentType",
+          "type": "string",
+          "location": "body",
+          "description": "The allotment type"
+        },
+        {
+          "name": "allowOverbooking",
+          "type": "bool",
+          "location": "body",
+          "description": "If false, or omitted, then this update will fail if it would result in an overbooking. If true, then the update will succeed even if it results in an overbooking."
+        },
+        {
+          "name": "autoRelease",
+          "type": "object",
+          "location": "body",
+          "description": "Optional auto-release configuration NOTE: pass empty object to remove auto-release configuration"
+        }
+      ]
+    },
+    {
+      "name": "update-allotment-block-notes_create",
+      "description": "Update a note on an allotment block. Optional: allotmentBlockCode, noteID, propertyID (plus 2 more). Returns the new PostUpdateAllotmentBlockNotesResponse.",
+      "method": "POST",
+      "path": "/updateAllotmentBlockNotes",
+      "params": [
+        {
+          "name": "allotmentBlockCode",
+          "type": "string",
+          "location": "body",
+          "description": "Allotment Block Code"
+        },
+        {
+          "name": "noteID",
+          "type": "string",
+          "location": "body",
+          "description": "Note's ID"
+        },
+        {
+          "name": "propertyID",
+          "type": "string",
+          "location": "body",
+          "description": "Property ID"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body",
+          "description": "Note status"
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "location": "body",
+          "description": "Note's text (null for no change)"
+        }
+      ]
+    },
+    {
+      "name": "userinfo_list",
+      "description": "Returns information on user who authorized connection. Optional: property_id, role_details.",
+      "method": "GET",
+      "path": "/userinfo",
+      "params": [
+        {
+          "name": "property_id",
+          "type": "string",
+          "location": "query",
+          "description": "Specify a property ID when using role_details"
+        },
+        {
+          "name": "role_details",
+          "type": "bool",
+          "location": "query",
+          "description": "Specify whether to include role and acl details of the user."
+        }
+      ]
+    }
+  ]
+}

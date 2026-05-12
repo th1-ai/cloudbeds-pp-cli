@@ -1,0 +1,356 @@
+{
+  "api_name": "cloudbeds",
+  "novelty_score": 9,
+  "alternatives": [
+    {
+      "name": "cloudbeds-api-python",
+      "url": "https://github.com/cloudbeds/cloudbeds-api-python",
+      "language": "Python",
+      "install_method": "",
+      "stars": 0,
+      "last_updated": "",
+      "command_count": 115,
+      "has_json_output": false,
+      "has_auth_support": false
+    },
+    {
+      "name": "tipi-cloudbeds",
+      "url": "https://www.npmjs.com/package/tipi-cloudbeds",
+      "language": "JavaScript",
+      "install_method": "",
+      "stars": 0,
+      "last_updated": "",
+      "command_count": 30,
+      "has_json_output": false,
+      "has_auth_support": false
+    },
+    {
+      "name": "r4kib/cloudbeds-api",
+      "url": "https://github.com/r4kib/cloudbeds-api",
+      "language": "PHP",
+      "install_method": "",
+      "stars": 0,
+      "last_updated": "",
+      "command_count": 25,
+      "has_json_output": false,
+      "has_auth_support": false
+    },
+    {
+      "name": "MGPelloni/cloudbeds",
+      "url": "https://github.com/MGPelloni/cloudbeds",
+      "language": "PHP",
+      "install_method": "",
+      "stars": 0,
+      "last_updated": "",
+      "command_count": 12,
+      "has_json_output": false,
+      "has_auth_support": false
+    },
+    {
+      "name": "CB-API-Explorer",
+      "url": "https://github.com/cloudbeds/CB-API-Explorer",
+      "language": "C#",
+      "install_method": "",
+      "stars": 0,
+      "last_updated": "",
+      "command_count": 0,
+      "has_json_output": false,
+      "has_auth_support": false
+    },
+    {
+      "name": "CBAPI-OperationalReportsClientApp",
+      "url": "https://github.com/cloudbeds/CBAPI-OperationalReportsClientApp",
+      "language": "C#",
+      "install_method": "",
+      "stars": 0,
+      "last_updated": "",
+      "command_count": 0,
+      "has_json_output": false,
+      "has_auth_support": false
+    }
+  ],
+  "gaps": [],
+  "patterns": [],
+  "recommendation": "proceed",
+  "researched_at": "2026-05-10T12:35:00Z",
+  "novel_features": [
+    {
+      "name": "Stale-dirty rooms",
+      "command": "housekeeping stale",
+      "description": "Find rooms that have been dirty longer than a threshold so you can chase them before arrivals.",
+      "rationale": "Joins dated housekeeping snapshots to compute time-in-status per room — Cloudbeds API exposes status but not duration.",
+      "example": "cloudbeds-pp-cli housekeeping stale --hours 4 --json",
+      "why_it_matters": "Use this when an agent is asked which rooms are blocking arrivals; native Cloudbeds endpoints can't answer 'how long has this been dirty'.",
+      "group": "Local time-series that compounds"
+    },
+    {
+      "name": "Today board",
+      "command": "today",
+      "description": "One-shot front-desk dashboard: arrivals, departures, in-house, unassigned, dirty rooms, today's ADR and occupancy.",
+      "rationale": "Composes five local queries against the synced mirror into one agent-shaped JSON doc — no single Cloudbeds endpoint returns this.",
+      "example": "cloudbeds-pp-cli today --json",
+      "why_it_matters": "Use this at shift handoff or when an agent is asked 'what's happening at the property right now' — one call instead of five.",
+      "group": "Composed front-desk operations"
+    },
+    {
+      "name": "Rate drift",
+      "command": "rates drift",
+      "description": "Show how rates moved over a window, by date, plan, and room type.",
+      "rationale": "Diffs successive dated rate snapshots — Cloudbeds API returns only current rates with no built-in history.",
+      "example": "cloudbeds-pp-cli rates drift --days 14 --room-type STD --json",
+      "why_it_matters": "Use this when an agent is asked 'did our Tuesday rate hike actually move ADR' — needs persisted rate history the API does not expose.",
+      "group": "Local time-series that compounds"
+    },
+    {
+      "name": "Occupancy trend",
+      "command": "occupancy trend",
+      "description": "Daily occupancy, ADR, and RevPAR series with week-over-week deltas.",
+      "rationale": "Reads dated occupancy snapshots — getDashboard exposes today only; trend requires a local time-series.",
+      "example": "cloudbeds-pp-cli occupancy trend --since 14d --json",
+      "why_it_matters": "Use this for revenue reviews — series and WoW deltas no Cloudbeds endpoint surfaces.",
+      "group": "Local time-series that compounds"
+    },
+    {
+      "name": "Source mix",
+      "command": "sources mix",
+      "description": "Bookings, nights, and revenue by source (Booking.com, Expedia, Direct, Airbnb) over a window.",
+      "rationale": "Joins local reservations to sources, aggregates by night and revenue — no native endpoint combines these.",
+      "example": "cloudbeds-pp-cli sources mix --since 30d --json",
+      "why_it_matters": "Use this when an agent is asked 'where are bookings coming from' or for partner channel-mix reports.",
+      "group": "Cross-table aggregation"
+    },
+    {
+      "name": "Unpaid upcoming",
+      "command": "payments unpaid",
+      "description": "Reservations arriving in the next N days with non-zero balance.",
+      "rationale": "Joins reservations (arrival window) to payments (balance \u003e 0) — no getReservationsWithUnpaidBalance endpoint.",
+      "example": "cloudbeds-pp-cli payments unpaid --within 7d --json",
+      "why_it_matters": "Use this when an agent is asked 'who hasn't paid yet for an upcoming stay' — Cloudbeds web UI requires per-reservation drilldown.",
+      "group": "Cross-table aggregation"
+    },
+    {
+      "name": "No-show audit",
+      "command": "reservations no-shows",
+      "description": "No-show rate by source, room type, and lead-time bucket; flags repeat no-show guests.",
+      "rationale": "Filters local reservations by status='no_show' and segments — no native segmentation endpoint.",
+      "example": "cloudbeds-pp-cli reservations no-shows --since 30d --json",
+      "why_it_matters": "Use this when an agent is asked which sources or segments are bleeding revenue to no-shows.",
+      "group": "Cross-table aggregation"
+    },
+    {
+      "name": "Guest history search",
+      "command": "guests search",
+      "description": "Full-text search across guest name, email, phone, and notes; returns past stays with totals.",
+      "rationale": "FTS5 across guest fields plus a join to reservations for stay history — Cloudbeds getGuestsByFilter cannot do cross-stay totals or notes-text search.",
+      "example": "cloudbeds-pp-cli guests search \"smith\" --history --json --select guest.firstName,guest.lastName,stays.totalNights,stays.totalRevenue",
+      "why_it_matters": "Use this when an agent is asked 'has this guest stayed before' or 'find all guests who booked the honeymoon suite' — FTS hides the verbose getGuestList payload.",
+      "group": "Local search that beats the API"
+    },
+    {
+      "name": "Mirror reconcile",
+      "command": "reconcile",
+      "description": "Compare local mirror to live API for a sampled window; emit a typed diff.",
+      "rationale": "Pulls both sides and emits added/removed/changed rows — no Cloudbeds endpoint does this.",
+      "example": "cloudbeds-pp-cli reconcile --table reservations --since 24h --json",
+      "why_it_matters": "Use this when an agent is asked to verify a sync mirror is current, or to triage a 'guest says they booked but I don't see it' ticket.",
+      "group": "Agent-native plumbing"
+    },
+    {
+      "name": "Reservation timeline",
+      "command": "reservations timeline",
+      "description": "Single-reservation forensic view: status changes, payments, notes, room assignments — chronological.",
+      "rationale": "Joins reservations + payments + housekeeping snapshots + notes by reservationID — no single endpoint returns all four.",
+      "example": "cloudbeds-pp-cli reservations timeline RES-12345 --json",
+      "why_it_matters": "Use this when an agent is asked to investigate a reservation dispute or guest complaint — one call instead of four.",
+      "group": "Composed front-desk operations"
+    },
+    {
+      "name": "Night audit pack",
+      "command": "audit night",
+      "description": "End-of-shift bundle: arrivals not checked-in, departures not checked-out, unbalanced folios, payments since last audit.",
+      "rationale": "Composes four local queries into a shift-handoff doc — replaces the Cloudbeds web UI's manual night-audit walk.",
+      "example": "cloudbeds-pp-cli audit night --json",
+      "why_it_matters": "Use this for end-of-shift handoff — one agent-shaped doc replaces tabbing across four web-UI screens.",
+      "group": "Composed front-desk operations"
+    }
+  ],
+  "novel_features_built": [
+    {
+      "name": "Stale-dirty rooms",
+      "command": "housekeeping stale",
+      "description": "Find rooms that have been dirty longer than a threshold so you can chase them before arrivals.",
+      "rationale": "Joins dated housekeeping snapshots to compute time-in-status per room — Cloudbeds API exposes status but not duration.",
+      "example": "cloudbeds-pp-cli housekeeping stale --hours 4 --json",
+      "why_it_matters": "Use this when an agent is asked which rooms are blocking arrivals; native Cloudbeds endpoints can't answer 'how long has this been dirty'.",
+      "group": "Local time-series that compounds"
+    },
+    {
+      "name": "Today board",
+      "command": "today",
+      "description": "One-shot front-desk dashboard: arrivals, departures, in-house, unassigned, dirty rooms, today's ADR and occupancy.",
+      "rationale": "Composes five local queries against the synced mirror into one agent-shaped JSON doc — no single Cloudbeds endpoint returns this.",
+      "example": "cloudbeds-pp-cli today --json",
+      "why_it_matters": "Use this at shift handoff or when an agent is asked 'what's happening at the property right now' — one call instead of five.",
+      "group": "Composed front-desk operations"
+    },
+    {
+      "name": "Rate drift",
+      "command": "rates drift",
+      "description": "Show how rates moved over a window, by date, plan, and room type.",
+      "rationale": "Diffs successive dated rate snapshots — Cloudbeds API returns only current rates with no built-in history.",
+      "example": "cloudbeds-pp-cli rates drift --days 14 --room-type STD --json",
+      "why_it_matters": "Use this when an agent is asked 'did our Tuesday rate hike actually move ADR' — needs persisted rate history the API does not expose.",
+      "group": "Local time-series that compounds"
+    },
+    {
+      "name": "Occupancy trend",
+      "command": "occupancy trend",
+      "description": "Daily occupancy, ADR, and RevPAR series with week-over-week deltas.",
+      "rationale": "Reads dated occupancy snapshots — getDashboard exposes today only; trend requires a local time-series.",
+      "example": "cloudbeds-pp-cli occupancy trend --since 14d --json",
+      "why_it_matters": "Use this for revenue reviews — series and WoW deltas no Cloudbeds endpoint surfaces.",
+      "group": "Local time-series that compounds"
+    },
+    {
+      "name": "Source mix",
+      "command": "sources mix",
+      "description": "Bookings, nights, and revenue by source (Booking.com, Expedia, Direct, Airbnb) over a window.",
+      "rationale": "Joins local reservations to sources, aggregates by night and revenue — no native endpoint combines these.",
+      "example": "cloudbeds-pp-cli sources mix --since 30d --json",
+      "why_it_matters": "Use this when an agent is asked 'where are bookings coming from' or for partner channel-mix reports.",
+      "group": "Cross-table aggregation"
+    },
+    {
+      "name": "Unpaid upcoming",
+      "command": "payments unpaid",
+      "description": "Reservations arriving in the next N days with non-zero balance.",
+      "rationale": "Joins reservations (arrival window) to payments (balance \u003e 0) — no getReservationsWithUnpaidBalance endpoint.",
+      "example": "cloudbeds-pp-cli payments unpaid --within 7d --json",
+      "why_it_matters": "Use this when an agent is asked 'who hasn't paid yet for an upcoming stay' — Cloudbeds web UI requires per-reservation drilldown.",
+      "group": "Cross-table aggregation"
+    },
+    {
+      "name": "No-show audit",
+      "command": "reservations no-shows",
+      "description": "No-show rate by source, room type, and lead-time bucket; flags repeat no-show guests.",
+      "rationale": "Filters local reservations by status='no_show' and segments — no native segmentation endpoint.",
+      "example": "cloudbeds-pp-cli reservations no-shows --since 30d --json",
+      "why_it_matters": "Use this when an agent is asked which sources or segments are bleeding revenue to no-shows.",
+      "group": "Cross-table aggregation"
+    },
+    {
+      "name": "Guest history search",
+      "command": "guests search",
+      "description": "Full-text search across guest name, email, phone, and notes; returns past stays with totals.",
+      "rationale": "FTS5 across guest fields plus a join to reservations for stay history — Cloudbeds getGuestsByFilter cannot do cross-stay totals or notes-text search.",
+      "example": "cloudbeds-pp-cli guests search \"smith\" --history --json --select guest.firstName,guest.lastName,stays.totalNights,stays.totalRevenue",
+      "why_it_matters": "Use this when an agent is asked 'has this guest stayed before' or 'find all guests who booked the honeymoon suite' — FTS hides the verbose getGuestList payload.",
+      "group": "Local search that beats the API"
+    },
+    {
+      "name": "Mirror reconcile",
+      "command": "reconcile",
+      "description": "Compare local mirror to live API for a sampled window; emit a typed diff.",
+      "rationale": "Pulls both sides and emits added/removed/changed rows — no Cloudbeds endpoint does this.",
+      "example": "cloudbeds-pp-cli reconcile --table reservations --since 24h --json",
+      "why_it_matters": "Use this when an agent is asked to verify a sync mirror is current, or to triage a 'guest says they booked but I don't see it' ticket.",
+      "group": "Agent-native plumbing"
+    },
+    {
+      "name": "Reservation timeline",
+      "command": "reservations timeline",
+      "description": "Single-reservation forensic view: status changes, payments, notes, room assignments — chronological.",
+      "rationale": "Joins reservations + payments + housekeeping snapshots + notes by reservationID — no single endpoint returns all four.",
+      "example": "cloudbeds-pp-cli reservations timeline RES-12345 --json",
+      "why_it_matters": "Use this when an agent is asked to investigate a reservation dispute or guest complaint — one call instead of four.",
+      "group": "Composed front-desk operations"
+    },
+    {
+      "name": "Night audit pack",
+      "command": "audit night",
+      "description": "End-of-shift bundle: arrivals not checked-in, departures not checked-out, unbalanced folios, payments since last audit.",
+      "rationale": "Composes four local queries into a shift-handoff doc — replaces the Cloudbeds web UI's manual night-audit walk.",
+      "example": "cloudbeds-pp-cli audit night --json",
+      "why_it_matters": "Use this for end-of-shift handoff — one agent-shaped doc replaces tabbing across four web-UI screens.",
+      "group": "Composed front-desk operations"
+    }
+  ],
+  "narrative": {
+    "display_name": "Cloudbeds",
+    "headline": "The Cloudbeds CLI nobody else built — full PMS API surface plus a local SQLite mirror, FTS5 search, dated snapshots, and front-desk transcendence commands no SDK wrapper offers.",
+    "value_prop": "Every Cloudbeds reservation, guest, room, rate, and housekeeping record can be synced into a local SQLite store and queried offline with FTS5. On top of the 115-endpoint PMS API surface, this CLI adds front-desk and revenue-management commands — `today`, `housekeeping stale`, `rates drift`, `occupancy trend`, `payments unpaid`, `reservations timeline`, `audit night` — that the official SDKs cannot answer because they require dated snapshots or cross-table joins. Output is agent-native by default: `--json`, `--select`, typed exit codes, `--dry-run` for mutations, and an MCP server tree-mirrored from the Cobra command tree.",
+    "auth_narrative": "Cloudbeds API keys start with `cbat_` and never expire unless unused for 30 days. Set `CLOUDBEDS_OAUTH2` in your environment, or run `cloudbeds-pp-cli auth set-token \u003ccbat_…\u003e` to persist the token to `~/.config/cloudbeds-pp-cli/config.toml`. Confirm with `auth status`. The CLI sends the token as `Authorization: Bearer cbat_…`.",
+    "quickstart": [
+      {
+        "command": "cloudbeds-pp-cli doctor --json",
+        "comment": "Verify your API key is set and the API is reachable."
+      },
+      {
+        "command": "cloudbeds-pp-cli sync --resources get-reservations --since 7d",
+        "comment": "Mirror the last 7 days of reservations into the local store. Add more --resources (get-rooms, get-housekeeping-status, get-rate, get-guest-list) to widen scope."
+      },
+      {
+        "command": "cloudbeds-pp-cli today --json",
+        "comment": "One-shot front-desk dashboard: arrivals, departures, in-house, unassigned, dirty rooms, today's ADR/occupancy."
+      },
+      {
+        "command": "cloudbeds-pp-cli housekeeping stale --hours 4 --json",
+        "comment": "Find rooms dirty longer than 4 hours — Cloudbeds API can't answer this without local snapshots."
+      },
+      {
+        "command": "cloudbeds-pp-cli payments unpaid --within 7d --json",
+        "comment": "Reservations arriving in the next 7 days with non-zero balance."
+      }
+    ],
+    "troubleshoots": [
+      {
+        "symptom": "401 access_denied — Missing Authorization header",
+        "fix": "Set `CLOUDBEDS_OAUTH2=cbat_…` in your environment, or run `cloudbeds-pp-cli auth set-token cbat_…` to persist the token. Run `cloudbeds-pp-cli doctor` to verify."
+      },
+      {
+        "symptom": "429 with Retry-After — rate limit hit",
+        "fix": "The CLI's adaptive limiter respects Retry-After automatically; wait or rerun. Cloudbeds caps properties at 5 rps and tech-partners at 10 rps."
+      },
+      {
+        "symptom": "Empty results from `today` or `housekeeping stale`",
+        "fix": "Run `cloudbeds-pp-cli sync` first. Transcendence commands read the local mirror — if it's empty they have nothing to compose."
+      },
+      {
+        "symptom": "API key got blocked after a script bug",
+        "fix": "Cloudbeds blocks the key (and your IP) after repeated rate-limit violations. Open a ticket with Cloudbeds developer support — the CLI cannot unblock you."
+      }
+    ],
+    "when_to_use": "Use this CLI any time an agent needs Cloudbeds data shaped for shell pipelines or downstream reasoning — front-desk operations (`today`, `audit night`), housekeeping urgency (`housekeeping stale`), revenue management (`occupancy trend`, `rates drift`, `sources mix`), payment triage (`payments unpaid`), guest investigation (`guests search --history`, `reservations timeline`), and integration debugging (`reconcile`). Pick this CLI over a generic HTTP call when the question requires dated snapshots or cross-table joins, and pick the spec-derived endpoint commands when you need a typed wrapper for a specific RPC.",
+    "recipes": [
+      {
+        "title": "Front-desk shift handoff in one JSON blob",
+        "command": "cloudbeds-pp-cli today --json --select arrivals.count,departures.count,in_house.count,unassigned.count,housekeeping.dirty_count,kpi.adr,kpi.occupancy",
+        "explanation": "Narrows the today board to the seven numbers a shift supervisor reads to a Slack channel. Without --select agents waste tokens parsing in-house guest objects."
+      },
+      {
+        "title": "Find the long-staying VIP",
+        "command": "cloudbeds-pp-cli guests search \"vip\" --history --json --select guest.firstName,guest.lastName,stays.totalNights,stays.lastStay",
+        "explanation": "FTS5 across name, email, phone, notes; returns four agent-readable fields per match instead of the verbose getGuestList payload."
+      },
+      {
+        "title": "Did Tuesday's rate hike stick?",
+        "command": "cloudbeds-pp-cli rates drift --days 14 --room-type STD --json",
+        "explanation": "Diffs dated rate snapshots — answer to a question Cloudbeds returns only current rates and cannot answer without local history."
+      },
+      {
+        "title": "Mirror reconcile in CI",
+        "command": "cloudbeds-pp-cli reconcile --table reservations --since 24h --json --select api_count,local_count,added,removed",
+        "explanation": "Hooks into a CI step that runs after every webhook deploy; pulls fresh reservations from the API, diffs against local mirror, prints added/removed/changed rows."
+      }
+    ],
+    "trigger_phrases": [
+      "what's happening at the hotel today",
+      "which rooms are stale dirty",
+      "guests arriving with unpaid balance",
+      "reservation timeline for RES-",
+      "occupancy trend last week",
+      "use cloudbeds",
+      "run cloudbeds-pp-cli"
+    ]
+  }
+}
